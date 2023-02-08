@@ -28,27 +28,27 @@
 }
 
 .u-section-1 .u-social-icons-1 {
-  height: 32px;
+  height: 36px;
   min-height: 16px;
-  width: 158px;
+  width: 174px;
   min-width: 94px;
-  margin: 0 auto;
+  margin: 88px 160px 0 auto;
 }
 
 .u-section-1 .u-icon-1 {
-  height: 0;
+  height: 36px;
 }
 
 .u-section-1 .u-icon-2 {
-  height: 0;
+  height: 36px;
 }
 
 .u-section-1 .u-icon-3 {
-  height: 0;
+  height: 36px;
 }
 
 .u-section-1 .u-icon-4 {
-  height: 0;
+  height: 36px;
 }
 
 @media (max-width: 1199px) {
