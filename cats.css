@@ -104,19 +104,19 @@
 
 .u-section-2 .u-carousel-control-1 {
   position: absolute;
-  left: 10px;
+  left: 0;
   width: 40px;
   height: 40px;
-  top: 122px;
+  right: auto;
   padding: 4px;
 }
 
 .u-section-2 .u-carousel-control-2 {
   position: absolute;
-  right: 10px;
   width: 40px;
   height: 40px;
-  top: 122px;
+  left: auto;
+  right: 0;
   padding: 4px;
 }
 
@@ -211,19 +211,19 @@
 
 .u-section-2 .u-carousel-control-3 {
   position: absolute;
-  left: 10px;
+  left: 0;
   width: 40px;
   height: 40px;
-  top: 122px;
+  right: auto;
   padding: 4px;
 }
 
 .u-section-2 .u-carousel-control-4 {
   position: absolute;
-  right: 10px;
   width: 40px;
   height: 40px;
-  top: 122px;
+  left: auto;
+  right: 0;
   padding: 4px;
 }
 
@@ -453,19 +453,19 @@
 
 .u-section-2 .u-carousel-control-5 {
   position: absolute;
-  left: 10px;
+  left: 0;
   width: 40px;
   height: 40px;
-  top: 122px;
+  right: auto;
   padding: 4px;
 }
 
 .u-section-2 .u-carousel-control-6 {
   position: absolute;
-  right: 10px;
   width: 40px;
   height: 40px;
-  top: 122px;
+  left: auto;
+  right: 0;
   padding: 4px;
 }
 
@@ -585,19 +585,19 @@
 
 .u-section-2 .u-carousel-control-7 {
   position: absolute;
-  left: 10px;
+  left: 0;
   width: 40px;
   height: 40px;
-  top: 122px;
+  right: auto;
   padding: 4px;
 }
 
 .u-section-2 .u-carousel-control-8 {
   position: absolute;
-  right: 10px;
   width: 40px;
   height: 40px;
-  top: 122px;
+  left: auto;
+  right: 0;
   padding: 4px;
 }
 
@@ -661,25 +661,67 @@
 
 .u-section-2 .u-carousel-control-9 {
   position: absolute;
-  left: 10px;
+  left: 0;
   width: 40px;
   height: 40px;
-  top: 122px;
+  right: auto;
   padding: 4px;
 }
 
 .u-section-2 .u-carousel-control-10 {
   position: absolute;
-  right: 10px;
   width: 40px;
   height: 40px;
-  top: 122px;
+  left: auto;
+  right: 0;
   padding: 4px;
+}
+
+@media (max-width: 1199px) {
+  .u-section-2 .u-carousel-control-2 {
+    top: 122px;
+  }
+
+  .u-section-2 .u-carousel-control-3 {
+    top: 122px;
+  }
+
+  .u-section-2 .u-carousel-control-4 {
+    top: 122px;
+  }
+
+  .u-section-2 .u-carousel-control-5 {
+    top: 122px;
+  }
+
+  .u-section-2 .u-carousel-control-6 {
+    top: 122px;
+  }
+
+  .u-section-2 .u-carousel-control-7 {
+    top: 122px;
+  }
+
+  .u-section-2 .u-carousel-control-8 {
+    top: 122px;
+  }
+
+  .u-section-2 .u-carousel-control-9 {
+    top: 122px;
+  }
+
+  .u-section-2 .u-carousel-control-10 {
+    top: 122px;
+  }
 }
 
 @media (max-width: 991px) {
   .u-section-2 .u-container-layout-1 {
     padding: 0;
+  }
+
+  .u-section-2 .u-carousel-control-1 {
+    top: 122px;
   }
 
   .u-section-2 .u-container-layout-2 {
@@ -712,42 +754,12 @@
     height: 585px;
   }
 
-  .u-section-2 .u-carousel-control-1 {
-    left: 0;
-    right: auto;
-  }
-
-  .u-section-2 .u-carousel-control-2 {
-    left: auto;
-    right: 0;
-  }
-
   .u-section-2 .u-gallery-2 {
     height: 585px;
   }
 
-  .u-section-2 .u-carousel-control-3 {
-    left: 0;
-    right: auto;
-  }
-
-  .u-section-2 .u-carousel-control-4 {
-    left: auto;
-    right: 0;
-  }
-
   .u-section-2 .u-gallery-3 {
     height: 585px;
-  }
-
-  .u-section-2 .u-carousel-control-5 {
-    left: 0;
-    right: auto;
-  }
-
-  .u-section-2 .u-carousel-control-6 {
-    left: auto;
-    right: 0;
   }
 
   .u-section-2 .u-gallery-4 {
@@ -774,32 +786,12 @@
     margin-right: 0;
   }
 
-  .u-section-2 .u-carousel-control-7 {
-    left: 0;
-    right: auto;
-  }
-
-  .u-section-2 .u-carousel-control-8 {
-    left: auto;
-    right: 0;
-  }
-
   .u-section-2 .u-gallery-5 {
     height: 585px;
   }
 
   .u-section-2 .u-carousel-item-30 {
     margin-right: 0;
-  }
-
-  .u-section-2 .u-carousel-control-9 {
-    left: 0;
-    right: auto;
-  }
-
-  .u-section-2 .u-carousel-control-10 {
-    left: auto;
-    right: 0;
   }
 }
 
