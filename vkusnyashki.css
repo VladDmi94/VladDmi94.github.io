@@ -188,30 +188,20 @@
 
 @media (max-width: 991px) {
   .u-section-2 .u-sheet-1 {
-    min-height: 750px;
+    min-height: 700px;
   }
 
   .u-section-2 .u-gallery-1 {
-    height: 710px;
-  }
-}
-
-@media (max-width: 767px) {
-  .u-section-2 .u-sheet-1 {
-    min-height: 650px;
-  }
-
-  .u-section-2 .u-gallery-1 {
-    height: 610px;
+    height: 660px;
   }
 }
 
 @media (max-width: 575px) {
   .u-section-2 .u-sheet-1 {
-    min-height: 550px;
+    min-height: 580px;
   }
 
   .u-section-2 .u-gallery-1 {
-    height: 510px;
+    height: 540px;
   }
 }

@@ -40146,13 +40146,14 @@ a.u-link.u-text-hover-grey-90:hover {
   .u-header .u-menu-1 {
     width: auto;
   }
-}
 
-@media (max-width: 575px) {
   .u-header .u-nav-3 {
+    font-size: 1.875rem;
     font-weight: 700;
   }
 }
+
+
  .u-footer {
   box-shadow: 5px 5px 20px 0px rgba(0,0,0,0.4);
 }

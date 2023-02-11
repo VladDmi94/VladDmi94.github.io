@@ -805,30 +805,31 @@
 
 @media (max-width: 575px) {
   .u-section-2 .u-sheet-1 {
-    min-height: 600px;
+    min-height: 580px;
   }
 
   .u-section-2 .u-tabs-1 {
     min-height: 580px;
+    margin-bottom: 0;
   }
 
   .u-section-2 .u-gallery-1 {
-    height: 435px;
+    height: 415px;
   }
 
   .u-section-2 .u-gallery-2 {
-    height: 435px;
+    height: 415px;
   }
 
   .u-section-2 .u-gallery-3 {
-    height: 435px;
+    height: 415px;
   }
 
   .u-section-2 .u-gallery-4 {
-    height: 435px;
+    height: 415px;
   }
 
   .u-section-2 .u-gallery-5 {
-    height: 435px;
+    height: 415px;
   }
 }
