@@ -43,6 +43,12 @@
             from { opacity: 0; transform: scale(0.8); }
             to { opacity: 1; transform: scale(1); }
         }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            50% { transform: translateX(5px); }
+            75% { transform: translateX(-5px); }
+        }
         .petal {
             position: absolute;
             width: 20px;
@@ -81,34 +87,23 @@
             margin-top: 20px;
             font-weight: bold;
         }
-        .reaction-text {
+        .meow-text {
             position: absolute;
             font-size: 24px;
-            color: #ff4d6d;
+            color: #d6336c;
             font-weight: bold;
-            pointer-events: none;
-            opacity: 0;
-            animation: fadeOut 1s ease-out forwards;
+            animation: fadeOut 1s forwards;
         }
         @keyframes fadeOut {
-            from { opacity: 1; transform: translateY(0px); }
-            to { opacity: 0; transform: translateY(-20px); }
-        }
-        .shake {
-            animation: shake 0.5s;
-        }
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-5px); }
-            50% { transform: translateX(5px); }
-            75% { transform: translateX(-5px); }
+            from { opacity: 1; }
+            to { opacity: 0; }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>С 8 марта, Роза! 🌹</h1>
-        <img id="cat-image" src="images/cat_with_rose.png" alt="Котик с розой">
+        <img id="cat-img" src="images/cat_with_rose.png" alt="Котик с розой">
         <br>
         <audio id="bg-music" src="images/roza_piano_music.mp3"></audio>
         <button id="play-button">🎵 Включить музыку</button>
@@ -125,16 +120,6 @@
             setTimeout(() => petal.remove(), parseFloat(petal.style.animationDuration) * 1000);
         }
         setInterval(createPetal, 500);
-        
-        const sounds = ["miu.mp3", "rrmaaau.mp3", "myaaaaaaaau.mp3", "mrrrrrmyau.mp3", "mrrrrmrrrrrmrrrrrmrrrrrmrrrrrrrmrrrrrr.mp3"];
-        const catImage = document.getElementById("cat-image");
-        catImage.addEventListener("click", () => {
-            const sound = new Audio("images/" + sounds[Math.floor(Math.random() * sounds.length)]);
-            sound.play();
-            catImage.classList.add("shake");
-            setTimeout(() => catImage.classList.remove("shake"), 500);
-        });
-        
         const music = document.getElementById("bg-music");
         const playButton = document.getElementById("play-button");
         playButton.addEventListener("click", () => {
@@ -147,6 +132,22 @@
             }
         });
         music.volume = 0.3;
+        
+        const catImg = document.getElementById("cat-img");
+        const sounds = ["miu.mp3", "rrmaaau.mp3", "myaaaaaaaau.mp3", "mrrrrrmyau.mp3", "mrrrrmrrrrrmrrrrrmrrrrrmrrrrrrrmrrrrrr.mp3"];
+        catImg.addEventListener("click", () => {
+            let audio = new Audio("images/" + sounds[Math.floor(Math.random() * sounds.length)]);
+            audio.play();
+            catImg.style.animation = "shake 0.5s";
+            setTimeout(() => catImg.style.animation = "", 500);
+            let meowText = document.createElement("div");
+            meowText.classList.add("meow-text");
+            meowText.textContent = "Мяу!";
+            meowText.style.left = (catImg.offsetLeft + Math.random() * 200 - 100) + "px";
+            meowText.style.top = (catImg.offsetTop - 30) + "px";
+            document.body.appendChild(meowText);
+            setTimeout(() => meowText.remove(), 1000);
+        });
     </script>
 </body>
 </html>
