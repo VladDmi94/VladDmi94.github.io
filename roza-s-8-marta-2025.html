@@ -3,38 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>С 8 Марта, Роза!</title>
+    <title>С 8 марта, Роза!</title>
     <style>
         body {
+            background-color: #ffe6f2;
             text-align: center;
-            background-color: #ffe4e1; /* Нежный розовый фон */
             font-family: Arial, sans-serif;
+            overflow: hidden;
         }
-
+        .container {
+            position: relative;
+            margin-top: 50px;
+        }
         img {
-            width: 300px; /* Размер картинки */
-            margin-top: 20px;
+            width: 100%;
+            max-width: 600px;
+            height: auto;
+            opacity: 0;
+            animation: fadeIn 2s forwards;
         }
-
-        h1 {
-            color: #d6336c;
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
         }
-
         .petal {
             position: absolute;
-            width: 10px;
-            height: 10px;
-            background-color: #ff4d6d;
+            width: 20px;
+            height: 20px;
+            background-color: pink;
             border-radius: 50%;
             opacity: 0.7;
+            pointer-events: none;
             animation: fall linear infinite;
         }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+        @keyframes fall {
+            from { transform: translateY(-10vh) translateX(0); opacity: 1; }
+            to { transform: translateY(100vh) translateX(20px); opacity: 0; }
         }
-
         /* Стили для кнопки */
         #play-button {
             margin-top: 15px;
@@ -46,25 +51,36 @@
             border-radius: 5px;
             cursor: pointer;
             transition: 0.3s;
+            display: inline-block;
         }
-
         #play-button:hover {
             background-color: #d6336c;
         }
     </style>
 </head>
 <body>
-
-    <h1>С 8 Марта, Роза! 🌹</h1>
-    
-    <!-- Картинка -->
-    <img src="images/cat_with_rose.png" alt="Котёнок с розой">
-
-    <!-- Кнопка включения музыки -->
-    <audio id="bg-music" src="images/roza_piano_music.mp3"></audio>
-    <button id="play-button">🎵 Включить музыку</button>
+    <div class="container">
+        <h1>С 8 марта, Роза! 🌹</h1>
+        <img src="images/cat_with_rose.png" alt="Котик с розой">
+        <br>
+        <!-- Кнопка под картинкой -->
+        <audio id="bg-music" src="images/roza_piano_music.mp3"></audio>
+        <button id="play-button">🎵 Включить музыку</button>
+    </div>
 
     <script>
+        function createPetal() {
+            let petal = document.createElement("div");
+            petal.classList.add("petal");
+            document.body.appendChild(petal);
+            petal.style.left = Math.random() * window.innerWidth + "px";
+            petal.style.animationDuration = (Math.random() * 3 + 2) + "s";
+            petal.style.animationDelay = Math.random() * 2 + "s";
+            setTimeout(() => petal.remove(), 5000);
+        }
+        setInterval(createPetal, 500);
+
+        // Музыкальный скрипт
         const music = document.getElementById("bg-music");
         const playButton = document.getElementById("play-button");
 
@@ -78,8 +94,7 @@
             }
         });
 
-        music.volume = 0.7; // Уменьшаем громкость
+        music.volume = 0.7; // Громкость музыки
     </script>
-
 </body>
 </html>
