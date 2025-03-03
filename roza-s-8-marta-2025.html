@@ -6,10 +6,14 @@
     <title>С 8 марта, Роза!</title>
     <style>
         body {
-            background-color: #ffe6f2;
-            text-align: center;
-            font-family: Arial, sans-serif;
-            overflow-x: hidden;
+            background: linear-gradient(45deg, #ffe6f2, #ffb3c6, #ffcce6);
+            background-size: 300% 300%;
+            animation: gradientShift 60s infinite alternate ease-in-out;
+        }
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
         .container {
             position: relative;
