@@ -39,9 +39,10 @@
         }
         @keyframes fall {
             0% { transform: translateY(-10vh) translateX(0) rotate(0deg); opacity: 1; }
-            50% { transform: translateY(50vh) translateX(20px) rotate(180deg); } /* Покачивание */
-            85% { transform: translateY(95vh) translateX(-10px) rotate(220deg); opacity: 1; } /* Почти внизу */
-            100% { transform: translateY(100vh) translateX(0) rotate(240deg); opacity: 0; } /* Лёгкое замирание и исчезновение */
+            50% { transform: translateY(50vh) translateX(30px) rotate(150deg); opacity: 1; } /* Колыхание в середине */
+            85% { transform: translateY(95vh) translateX(15px) rotate(220deg); opacity: 1; } /* Почти упал */
+            100% { transform: translateY(98vh) translateX(10px) rotate(240deg); opacity: 1; } /* Упал */
+            110% { transform: translateY(98vh) translateX(5px) rotate(250deg); opacity: 0; } /* Исчез */
         }
         /* Стили для кнопки */
         #play-button {
@@ -76,9 +77,9 @@
             petal.classList.add("petal");
             document.body.appendChild(petal);
             petal.style.left = Math.random() * window.innerWidth + "px";
-            petal.style.animationDuration = (Math.random() * 3 + 2) + "s";
-            petal.style.animationDelay = Math.random() * 2 + "s";
-            setTimeout(() => petal.remove(), 5000);
+            petal.style.animationDuration = (Math.random() * 6 + 5) + "s"; // Было (3 + 2), теперь (6 + 5)
+            petal.style.animationDelay = Math.random() * 3 + "s"; // Чуть увеличили задержку появления
+            setTimeout(() => petal.remove(), 11000); // Было 5000, теперь 11000 (дольше остаются)
         }
         setInterval(createPetal, 500);
         // Музыкальный скрипт
