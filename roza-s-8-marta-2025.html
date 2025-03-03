@@ -28,13 +28,14 @@
             width: 100%;
             max-width: 600px;
             height: auto;
+            cursor: pointer;
         }
         h1, img, #play-button, #greeting {
             opacity: 0;
             transform: scale(0.8);
             animation: fadeIn 1.5s ease-out forwards;
         }
-        h1 { animation-delay: 0s; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); }
+        h1 { animation-delay: 0s; }
         img { animation-delay: 1.5s; }
         #play-button { animation-delay: 3s; }
         #greeting { animation-delay: 4.5s; }
@@ -46,12 +47,11 @@
             position: absolute;
             width: 20px;
             height: 14px;
-            background: radial-gradient(circle, #ff6b81, #ff4d6d);
+            background-color: pink;
             border-radius: 50%;
-            opacity: 0.9;
+            opacity: 0.8;
             pointer-events: none;
             top: -10vh;
-            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
             animation: fall 10s linear forwards;
         }
         @keyframes fall {
@@ -81,12 +81,34 @@
             margin-top: 20px;
             font-weight: bold;
         }
+        .reaction-text {
+            position: absolute;
+            font-size: 24px;
+            color: #ff4d6d;
+            font-weight: bold;
+            pointer-events: none;
+            opacity: 0;
+            animation: fadeOut 1s ease-out forwards;
+        }
+        @keyframes fadeOut {
+            from { opacity: 1; transform: translateY(0px); }
+            to { opacity: 0; transform: translateY(-20px); }
+        }
+        .shake {
+            animation: shake 0.5s;
+        }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            50% { transform: translateX(5px); }
+            75% { transform: translateX(-5px); }
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>С 8 марта, Роза! 🌹</h1>
-        <img src="images/cat_with_rose.png" alt="Котик с розой">
+        <img id="cat-image" src="images/cat_with_rose.png" alt="Котик с розой">
         <br>
         <audio id="bg-music" src="images/roza_piano_music.mp3"></audio>
         <button id="play-button">🎵 Включить музыку</button>
@@ -103,6 +125,16 @@
             setTimeout(() => petal.remove(), parseFloat(petal.style.animationDuration) * 1000);
         }
         setInterval(createPetal, 500);
+        
+        const sounds = ["miu.mp3", "rrmaaau.mp3", "myaaaaaaaau.mp3", "mrrrrrmyau.mp3", "mrrrrmrrrrrmrrrrrmrrrrrmrrrrrrrmrrrrrr.mp3"];
+        const catImage = document.getElementById("cat-image");
+        catImage.addEventListener("click", () => {
+            const sound = new Audio("images/" + sounds[Math.floor(Math.random() * sounds.length)]);
+            sound.play();
+            catImage.classList.add("shake");
+            setTimeout(() => catImage.classList.remove("shake"), 500);
+        });
+        
         const music = document.getElementById("bg-music");
         const playButton = document.getElementById("play-button");
         playButton.addEventListener("click", () => {
