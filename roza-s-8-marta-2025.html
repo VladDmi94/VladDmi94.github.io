@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>С 8 марта!</title>
+    <style>
+        body {
+            background-color: #ffe6f2;
+            text-align: center;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+        }
+        .container {
+            position: relative;
+            margin-top: 50px;
+        }
+        img {
+            width: 500px;
+            opacity: 0;
+            animation: fadeIn 2s forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        .petal {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: pink;
+            border-radius: 50%;
+            opacity: 0.7;
+            pointer-events: none;
+            animation: fall linear infinite;
+        }
+        @keyframes fall {
+            from { transform: translateY(-10vh) translateX(0); opacity: 1; }
+            to { transform: translateY(100vh) translateX(20px); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>С 8 марта!</h1>
+        <img src="images/cat_with_rose.png" alt="Котик с розой">
+    </div>
+
+    <script>
+        function createPetal() {
+            let petal = document.createElement("div");
+            petal.classList.add("petal");
+            document.body.appendChild(petal);
+            petal.style.left = Math.random() * window.innerWidth + "px";
+            petal.style.animationDuration = (Math.random() * 3 + 2) + "s";
+            petal.style.animationDelay = Math.random() * 2 + "s";
+            setTimeout(() => petal.remove(), 5000);
+        }
+        setInterval(createPetal, 500);
+    </script>
+</body>
+</html>
