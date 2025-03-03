@@ -34,7 +34,7 @@
             transform: scale(0.8);
             animation: fadeIn 1.5s ease-out forwards;
         }
-        h1 { animation-delay: 0s; }
+        h1 { animation-delay: 0s; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); }
         img { animation-delay: 1.5s; }
         #play-button { animation-delay: 3s; }
         #greeting { animation-delay: 4.5s; }
@@ -46,11 +46,12 @@
             position: absolute;
             width: 20px;
             height: 14px;
-            background-color: pink;
+            background: radial-gradient(circle, #ff6b81, #ff4d6d);
             border-radius: 50%;
-            opacity: 0.8;
+            opacity: 0.9;
             pointer-events: none;
             top: -10vh;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
             animation: fall 10s linear forwards;
         }
         @keyframes fall {
