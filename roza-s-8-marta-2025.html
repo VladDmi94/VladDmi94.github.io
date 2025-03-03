@@ -34,8 +34,10 @@
             border-radius: 50%;
             opacity: 0.7;
             pointer-events: none;
+            top: -10vh; /* Подняли точку появления лепестков */
             animation: fall linear infinite;
         }
+
         @keyframes fall {
             from { transform: translateY(-10vh) translateX(0); opacity: 1; }
             to { transform: translateY(100vh) translateX(20px); opacity: 0; }
