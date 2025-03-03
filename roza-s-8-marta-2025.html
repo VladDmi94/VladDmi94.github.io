@@ -19,19 +19,27 @@
             width: 100%;
             max-width: 600px;
             height: auto;
-            opacity: 0;
-            animation: fadeIn 2s forwards;
         }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: scale(0.8); }
-            to { opacity: 1; transform: scale(1); }
+        h1, img, #play-button, #greeting {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 1.5s ease-out forwards;
+        }
+        h1 { animation-delay: 0s; }
+        img { animation-delay: 1.5s; }
+        #play-button { animation-delay: 3s; }
+        #greeting { animation-delay: 4.5s; }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         .petal {
             position: absolute;
             width: 20px;
-            height: 14px; /* Делаем немного овальными */
+            height: 14px;
             background-color: pink;
-            border-radius: 50%; /* Оставляем округлую форму */
+            border-radius: 50%;
             opacity: 0.8;
             pointer-events: none;
             top: -10vh;
@@ -39,12 +47,10 @@
         }
         @keyframes fall {
             0% { transform: translateY(-10vh) translateX(0) rotate(0deg); opacity: 1; }
-            25% { transform: translateY(25vh) translateX(-20px) rotate(90deg); }
-            50% { transform: translateY(50vh) translateX(30px) rotate(150deg); }
-            75% { transform: translateY(75vh) translateX(-10px) rotate(200deg); }
+            50% { transform: translateY(50vh) translateX(30px) rotate(150deg); opacity: 1; }
+            85% { transform: translateY(95vh) translateX(15px) rotate(220deg); opacity: 1; }
             100% { transform: translateY(98vh) translateX(10px) rotate(240deg); opacity: 0; }
         }
-        /* Стили для кнопки */
         #play-button {
             margin-top: 15px;
             padding: 10px 20px;
@@ -60,6 +66,12 @@
         #play-button:hover {
             background-color: #d6336c;
         }
+        #greeting {
+            font-size: 18px;
+            color: #d6336c;
+            margin-top: 20px;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
@@ -67,29 +79,23 @@
         <h1>С 8 марта, Роза! 🌹</h1>
         <img src="images/cat_with_rose.png" alt="Котик с розой">
         <br>
-        <!-- Кнопка под картинкой -->
         <audio id="bg-music" src="images/roza_piano_music.mp3"></audio>
         <button id="play-button">🎵 Включить музыку</button>
+        <p id="greeting">Дорогая Роза, с 8 марта! Пусть этот день принесёт тебе радость, улыбки и море счастья! 💖</p>
     </div>
     <script>
         function createPetal() {
             let petal = document.createElement("div");
             petal.classList.add("petal");
             document.body.appendChild(petal);
-            let sizeW = Math.random() * 10 + 15;  // Ширина от 15px до 25px
-            let sizeH = Math.random() * 7 + 10;   // Высота от 10px до 17px
             petal.style.left = Math.random() * (window.innerWidth - 30) + "px";
-            petal.style.animationDuration = (Math.random() * 6 + 5) + "s"; 
+            petal.style.animationDuration = (Math.random() * 6 + 5) + "s";
             petal.style.animationDelay = Math.random() * 3 + "s";
-            petal.style.width = sizeW + "px";
-            petal.style.height = sizeH + "px";
             setTimeout(() => petal.remove(), parseFloat(petal.style.animationDuration) * 1000);
         }
         setInterval(createPetal, 500);
-        // Музыкальный скрипт
         const music = document.getElementById("bg-music");
         const playButton = document.getElementById("play-button");
-
         playButton.addEventListener("click", () => {
             if (music.paused) {
                 music.play();
@@ -99,7 +105,7 @@
                 playButton.textContent = "🎵 Включить музыку";
             }
         });
-        music.volume = 0.3; // Громкость музыки
+        music.volume = 0.3;
     </script>
 </body>
 </html>
