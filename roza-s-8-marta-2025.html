@@ -57,7 +57,7 @@
 
         .container {
             position: relative;
-            margin-top: 50px;
+            margin-top: 20vh; /* Размещаем контент примерно посередине экрана */
         }
 
         img {
@@ -69,6 +69,7 @@
             margin: 0 auto;
             opacity: 0; /* Начальная прозрачность */
             transform: scale(0.8); /* Начальный масштаб */
+            transition: transform 0.5s ease-out, margin-top 0.5s ease-out; /* Плавное изменение */
         }
 
         h1, #play-button {
@@ -123,6 +124,8 @@
             cursor: pointer;
             transition: 0.3s;
             display: inline-block;
+            position: relative; /* Для анимации перемещения */
+            transition: margin-top 0.5s ease-out; /* Плавное перемещение */
         }
 
         #play-button:hover {
@@ -234,10 +237,21 @@
                 // Плавное появление текста поздравления
                 greeting.style.opacity = "1";
                 greeting.style.transform = "scale(1)";
+
+                // Прокрутка страницы вниз к тексту поздравления
+                greeting.scrollIntoView({ behavior: "smooth", block: "center" });
+
+                // Смещение картинки и кнопки вверх
+                catImage.style.marginTop = "10px"; // Поднимаем картинку выше
+                playButton.style.marginTop = "10px"; // Поднимаем кнопку выше
             } else {
                 music.pause();
                 playButton.textContent = "🎵Вернуть музыку";
                 clearInterval(petalsInterval); // Остановка создания лепестков
+
+                // Возвращение картинки и кнопки в исходное состояние
+                catImage.style.marginTop = "0";
+                playButton.style.marginTop = "15px";
             }
         });
         music.volume = 0.3;
