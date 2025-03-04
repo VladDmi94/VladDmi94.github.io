@@ -1,25 +1,51 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <!-- Настройки кодировки и адаптивности -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Иконка для вкладки браузера -->
     <link rel="icon" type="image/png" href="images/roza_favicon.png">
-    <!-- Заголовок страницы -->
     <title>С 8 марта, Роза!</title>
     <style>
-        /* Стили для тела страницы */
-        body {
-            background: linear-gradient(45deg, #ffebf0, #ffb3c6, #ffcce6, #cceeff, #e6ccff, #fff5e6); /* Градиентный фон */
-            background-size: 300% 300%; /* Размер фона для анимации */
-            animation: gradientShift 60s infinite alternate ease-in-out; /* Анимация фона */
-            text-align: center; /* Выравнивание текста по центру */
-            font-family: Arial, sans-serif; /* Шрифт */
-            overflow-x: hidden; /* Скрытие горизонтального скролла */
+        /* Стили для чёрного фона и кнопки "Открыть поздравление" */
+        #preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            transition: opacity 1s ease-out;
         }
 
-        /* Анимация для плавного изменения фона */
+        #open-button {
+            padding: 15px 30px;
+            font-size: 20px;
+            background-color: #ff4d6d;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: transform 0.3s, opacity 0.3s;
+        }
+
+        #open-button:hover {
+            transform: scale(1.1);
+        }
+
+        /* Основные стили для страницы */
+        body {
+            background: linear-gradient(45deg, #ffebf0, #ffb3c6, #ffcce6, #cceeff, #e6ccff, #fff5e6);
+            background-size: 300% 300%;
+            animation: gradientShift 60s infinite alternate ease-in-out;
+            text-align: center;
+            font-family: Arial, sans-serif;
+            overflow-x: hidden;
+        }
+
         @keyframes gradientShift {
             0% { background-position: 0% 50%; }
             25% { background-position: 50% 50%; }
@@ -28,56 +54,49 @@
             100% { background-position: 0% 50%; }
         }
 
-        /* Контейнер для основного содержимого */
         .container {
             position: relative;
-            margin-top: 50px; /* Отступ сверху */
+            margin-top: 50px;
         }
 
-        /* Стили для изображения */
         img {
             display: block;
             width: 100%;
-            max-width: 600px; /* Максимальная ширина изображения */
-            height: auto; /* Автоматическая высота */
-            cursor: pointer; /* Курсор в виде указателя */
-            margin: 0 auto; /* Центрирование изображения */
+            max-width: 600px;
+            height: auto;
+            cursor: pointer;
+            margin: 0 auto;
         }
 
-        /* Анимация появления элементов */
         h1, img, #play-button, #greeting {
-            opacity: 0; /* Начальная прозрачность */
-            transform: scale(0.8); /* Начальный масштаб */
-            animation: fadeIn 1.5s ease-out forwards; /* Анимация появления */
+            opacity: 0;
+            transform: scale(0.8);
+            animation: fadeIn 1.5s ease-out forwards;
         }
 
-        /* Задержки для анимации */
         h1 { animation-delay: 0s; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); }
         img { animation-delay: 1.5s; }
         #play-button { animation-delay: 3s; }
         #greeting { animation-delay: 4.5s; }
 
-        /* Анимация появления */
         @keyframes fadeIn {
             from { opacity: 0; transform: scale(0.8); }
             to { opacity: 1; transform: scale(1); }
         }
 
-        /* Стили для лепестков */
         .petal {
             position: absolute;
             width: 20px;
             height: 14px;
-            background: radial-gradient(circle, #ff6b81, #ff4d6d); /* Градиентный цвет */
-            border-radius: 50%; /* Круглая форма */
-            opacity: 0.9; /* Прозрачность */
-            pointer-events: none; /* Игнорирование кликов */
-            top: -10vh; /* Начальная позиция сверху */
-            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); /* Тень */
-            animation: fall 10s linear forwards; /* Анимация падения */
+            background: radial-gradient(circle, #ff6b81, #ff4d6d);
+            border-radius: 50%;
+            opacity: 0.9;
+            pointer-events: none;
+            top: -10vh;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+            animation: fall 10s linear forwards;
         }
 
-        /* Анимация падения лепестков */
         @keyframes fall {
             0% { transform: translateY(-10vh) translateX(0) rotate(0deg); opacity: 1; }
             50% { transform: translateY(50vh) translateX(30px) rotate(150deg); opacity: 1; }
@@ -85,26 +104,23 @@
             100% { transform: translateY(98vh) translateX(10px) rotate(240deg); opacity: 0; }
         }
 
-        /* Стили для кнопки воспроизведения музыки */
         #play-button {
             margin-top: 15px;
             padding: 10px 20px;
             font-size: 16px;
             border: none;
-            background-color: #ff4d6d; /* Цвет кнопки */
-            color: white; /* Цвет текста */
-            border-radius: 5px; /* Скругление углов */
-            cursor: pointer; /* Курсор в виде указателя */
-            transition: 0.3s; /* Плавное изменение цвета */
+            background-color: #ff4d6d;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
             display: inline-block;
         }
 
-        /* Эффект при наведении на кнопку */
         #play-button:hover {
             background-color: #d6336c;
         }
 
-        /* Стили для текста поздравления */
         #greeting {
             font-size: 18px;
             color: #d6336c;
@@ -117,7 +133,6 @@
             padding: 10px;
         }
 
-        /* Стили для текста "Мяу" */
         .meow-text {
             position: absolute;
             font-size: 24px;
@@ -125,10 +140,9 @@
             font-weight: bold;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
             opacity: 1;
-            animation: fadeOut 1s ease-in-out forwards; /* Анимация исчезновения */
+            animation: fadeOut 1s ease-in-out forwards;
         }
 
-        /* Анимация исчезновения текста "Мяу" */
         @keyframes fadeOut {
             from { opacity: 1; transform: translateY(0); }
             to { opacity: 0; transform: translateY(-20px); }
@@ -136,72 +150,80 @@
     </style>
 </head>
 <body>
-    <!-- Основной контейнер -->
+    <!-- Прелоадер с кнопкой "Открыть поздравление" -->
+    <div id="preloader">
+        <button id="open-button">Открыть поздравление</button>
+    </div>
+
+    <!-- Основной контейнер с поздравлением -->
     <div class="container">
-        <!-- Заголовок -->
         <h1>С 8 марта, Роза! 🌹</h1>
-        <!-- Изображение котика -->
         <img id="cat-image" src="images/cat_with_rose.png" alt="Котик с розой">
         <br>
-        <!-- Аудио для фоновой музыки -->
         <audio id="bg-music" src="images/roza_piano_music.mp3"></audio>
-        <!-- Кнопка для воспроизведения музыки -->
         <button id="play-button">🎵 Включить музыку</button>
-        <!-- Текст поздравления -->
         <p id="greeting">Дорогая моя Роза, поздравляю тебя с Международным женским днём 8 марта!💕 Желаю тебе и всем твоим родным крепкого здоровья, никогда не болеть. Будь самой счастливой и дари счастье окружающим. Пусть исполняются все твои мечты!💖</p>
     </div>
+
     <script>
-        // Переменная для хранения интервала падающих лепестков
+        // Прелоадер и кнопка "Открыть поздравление"
+        const preloader = document.getElementById("preloader");
+        const openButton = document.getElementById("open-button");
+
+        openButton.addEventListener("click", () => {
+            // Плавное исчезновение прелоадера
+            preloader.style.opacity = "0";
+            setTimeout(() => {
+                preloader.style.display = "none"; // Полное удаление прелоадера
+            }, 1000); // Задержка для завершения анимации
+        });
+
+        // Логика для падающих лепестков
         let petalsInterval;
 
-        // Функция для создания лепестка
         function createPetal() {
             let petal = document.createElement("div");
             petal.classList.add("petal");
             document.body.appendChild(petal);
-            petal.style.left = Math.random() * (window.innerWidth - 30) + "px"; // Случайная позиция по горизонтали
-            petal.style.animationDuration = (Math.random() * 6 + 5) + "s"; // Случайная длительность анимации
-            petal.style.animationDelay = Math.random() * 3 + "s"; // Случайная задержка анимации
-            setTimeout(() => petal.remove(), parseFloat(petal.style.animationDuration) * 1000); // Удаление лепестка после анимации
+            petal.style.left = Math.random() * (window.innerWidth - 30) + "px";
+            petal.style.animationDuration = (Math.random() * 6 + 5) + "s";
+            petal.style.animationDelay = Math.random() * 3 + "s";
+            setTimeout(() => petal.remove(), parseFloat(petal.style.animationDuration) * 1000);
         }
 
-        // Получение элементов музыки и кнопки
+        // Логика для музыки
         const music = document.getElementById("bg-music");
         const playButton = document.getElementById("play-button");
 
-        // Обработчик клика на кнопку
         playButton.addEventListener("click", () => {
             if (music.paused) {
-                music.play(); // Воспроизведение музыки
+                music.play();
                 playButton.textContent = "⏸ Остановить музыку";
-                petalsInterval = setInterval(createPetal, 500); // Запуск падающих лепестков
+                petalsInterval = setInterval(createPetal, 500);
             } else {
-                music.pause(); // Пауза музыки
+                music.pause();
                 playButton.textContent = "🎵 Включить музыку";
-                clearInterval(petalsInterval); // Остановка падающих лепестков
+                clearInterval(petalsInterval);
             }
         });
-        music.volume = 0.3; // Установка громкости музыки
+        music.volume = 0.3;
 
-        // Получение изображения котика
+        // Логика для клика на котика
         const catImage = document.getElementById("cat-image");
 
-        // Обработчик клика на изображение котика
         catImage.addEventListener("click", (event) => {
-            const sounds = ["miu.mp3", "rrmaaau.mp3", "myaaaaaaaau.mp3", "mrrrrrmyau.mp3"]; // Список звуков
-            const randomSound = sounds[Math.floor(Math.random() * sounds.length)]; // Случайный звук
-            new Audio("images/" + randomSound).play(); // Воспроизведение звука
+            const sounds = ["miu.mp3", "rrmaaau.mp3", "myaaaaaaaau.mp3", "mrrrrrmyau.mp3"];
+            const randomSound = sounds[Math.floor(Math.random() * sounds.length)];
+            new Audio("images/" + randomSound).play();
 
-            // Создание текста "Мяу"
             let meowText = document.createElement("div");
             meowText.classList.add("meow-text");
             meowText.textContent = "Мяу!😸";
             document.body.appendChild(meowText);
 
-            // Позиционирование текста "Мяу" в месте клика
             meowText.style.left = event.pageX + "px";
             meowText.style.top = event.pageY + "px";
-            setTimeout(() => meowText.remove(), 1000); // Удаление текста через 1 секунду
+            setTimeout(() => meowText.remove(), 1000);
         });
     </script>
 </body>
