@@ -13,8 +13,6 @@
             text-align: center;
             font-family: Arial, sans-serif;
             overflow-x: hidden;
-            margin: 0;
-            padding: 0;
         }
         @keyframes gradientShift {
             0% { background-position: 0% 50%; }
@@ -29,35 +27,13 @@
             width: 100%; height: 100%;
             background: black;
             display: flex;
-            justify-content: center;
             align-items: center;
-            z-index: 1000;
-            transition: opacity 1.5s ease-out;
+            justify-content: center;
+            z-index: 10;
+            transition: opacity 1s ease-out;
         }
-        .overlay button {
-            font-size: 20px;
-            padding: 15px 30px;
-            border: none;
-            background: #ff4d6d;
-            color: white;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-        .overlay button:hover {
-            background: #d6336c;
-        }
-        .hidden {
-            opacity: 0;
-            pointer-events: none;
-        }
-        .container {
-            position: relative;
-            margin-top: 50px;
-            opacity: 0;
-            transform: scale(0.8);
-            transition: opacity 1.5s ease-out, transform 1.5s ease-out;
-        }
+        .hidden { display: none; }
+        .container { position: relative; margin-top: 50px; }
         img {
             display: block;
             width: 100%;
@@ -66,31 +42,16 @@
             cursor: pointer;
             margin: 0 auto;
         }
-        #play-button {
-            margin-top: 15px;
-            padding: 10px 20px;
-            font-size: 16px;
-            border: none;
-            background-color: #ff4d6d;
-            color: white;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: 0.3s;
-            display: inline-block;
+        h1, img, #play-button, #greeting {
+            opacity: 0;
+            transform: scale(0.8);
         }
-        #play-button:hover {
-            background-color: #d6336c;
+        .fadeIn {
+            animation: fadeIn 1.5s ease-out forwards;
         }
-        #greeting {
-            font-size: 18px;
-            color: #d6336c;
-            margin-top: 20px;
-            font-weight: bold;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-            line-height: 1.5;
-            padding: 10px;
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
         }
         .petal {
             position: absolute;
@@ -106,29 +67,30 @@
         }
         @keyframes fall {
             0% { transform: translateY(-10vh) translateX(0) rotate(0deg); opacity: 1; }
+            50% { transform: translateY(50vh) translateX(30px) rotate(150deg); opacity: 1; }
+            85% { transform: translateY(95vh) translateX(15px) rotate(220deg); opacity: 1; }
             100% { transform: translateY(98vh) translateX(10px) rotate(240deg); opacity: 0; }
         }
-        .meow-text {
-            position: absolute;
-            font-size: 24px;
-            color: #ff4d6d;
-            font-weight: bold;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-            opacity: 1;
-            animation: fadeOut 1s ease-in-out forwards;
+        #play-button {
+            margin-top: 15px;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            background-color: #ff4d6d;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
         }
-        @keyframes fadeOut {
-            from { opacity: 1; transform: translateY(0); }
-            to { opacity: 0; transform: translateY(-20px); }
-        }
+        #play-button:hover { background-color: #d6336c; }
     </style>
 </head>
 <body>
-    <div class="overlay">
+    <div class="overlay" id="overlay">
         <button onclick="startGreeting()">Открыть поздравление</button>
     </div>
-    <div class="container" id="content">
-        <h1>С 8 марта, Роза! 🌹</h1>
+    <div class="container">
+        <h1 id="title">С 8 марта, Роза! 🌹</h1>
         <img id="cat-image" src="images/cat_with_rose.png" alt="Котик с розой">
         <br>
         <audio id="bg-music" src="images/roza_piano_music.mp3"></audio>
@@ -137,33 +99,35 @@
     </div>
     <script>
         function startGreeting() {
-            document.querySelector('.overlay').classList.add('hidden');
-            setTimeout(() => {
-                document.getElementById('content').style.opacity = "1";
-                document.getElementById('content').style.transform = "scale(1)";
-            }, 500);
+            document.getElementById("overlay").style.opacity = "0";
+            setTimeout(() => document.getElementById("overlay").classList.add("hidden"), 1000);
+            setTimeout(() => document.getElementById("title").classList.add("fadeIn"), 500);
+            setTimeout(() => document.getElementById("cat-image").classList.add("fadeIn"), 2000);
+            setTimeout(() => document.getElementById("play-button").classList.add("fadeIn"), 3500);
+            setTimeout(() => document.getElementById("greeting").classList.add("fadeIn"), 5000);
         }
-        document.getElementById("play-button").addEventListener("click", function() {
-            let music = document.getElementById("bg-music");
+        let petalsInterval;
+        function createPetal() {
+            let petal = document.createElement("div");
+            petal.classList.add("petal");
+            document.body.appendChild(petal);
+            petal.style.left = Math.random() * (window.innerWidth - 30) + "px";
+            setTimeout(() => petal.remove(), 10000);
+        }
+        const music = document.getElementById("bg-music");
+        const playButton = document.getElementById("play-button");
+        playButton.addEventListener("click", () => {
             if (music.paused) {
                 music.play();
-                this.textContent = "⏸ Остановить музыку";
+                playButton.textContent = "⏸ Остановить музыку";
+                petalsInterval = setInterval(createPetal, 500);
             } else {
                 music.pause();
-                this.textContent = "🎵 Включить музыку";
+                playButton.textContent = "🎵 Включить музыку";
+                clearInterval(petalsInterval);
             }
         });
-        document.getElementById("cat-image").addEventListener("click", function(event) {
-            let sounds = ["miu.mp3", "rrmaaau.mp3", "myaaaaaaaau.mp3", "mrrrrrmyau.mp3"];
-            new Audio("images/" + sounds[Math.floor(Math.random() * sounds.length)]).play();
-            let meowText = document.createElement("div");
-            meowText.classList.add("meow-text");
-            meowText.textContent = "Мяу!😸";
-            document.body.appendChild(meowText);
-            meowText.style.left = event.pageX + "px";
-            meowText.style.top = event.pageY + "px";
-            setTimeout(() => meowText.remove(), 1000);
-        });
+        music.volume = 0.3;
     </script>
 </body>
 </html>
