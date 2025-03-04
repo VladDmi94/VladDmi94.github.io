@@ -66,19 +66,16 @@
             height: auto;
             cursor: pointer;
             margin: 0 auto;
+            opacity: 0; /* Начальная прозрачность */
+            transform: scale(0.8); /* Начальный масштаб */
         }
 
-        h1, img, #play-button, #greeting {
-            opacity: 0;
-            transform: scale(0.8);
-            animation: fadeIn 1.5s ease-out forwards;
+        h1, #play-button, #greeting {
+            opacity: 0; /* Начальная прозрачность */
+            transform: scale(0.8); /* Начальный масштаб */
         }
 
-        h1 { animation-delay: 0s; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); }
-        img { animation-delay: 1.5s; }
-        #play-button { animation-delay: 3s; }
-        #greeting { animation-delay: 4.5s; }
-
+        /* Анимация появления */
         @keyframes fadeIn {
             from { opacity: 0; transform: scale(0.8); }
             to { opacity: 1; transform: scale(1); }
@@ -157,7 +154,7 @@
 
     <!-- Основной контейнер с поздравлением -->
     <div class="container">
-        <h1>С 8 марта, Роза! 🌹</h1>
+        <h1 id="header">С 8 марта, Роза! 🌹</h1>
         <img id="cat-image" src="images/cat_with_rose.png" alt="Котик с розой">
         <br>
         <audio id="bg-music" src="images/roza_piano_music.mp3"></audio>
@@ -170,11 +167,23 @@
         const preloader = document.getElementById("preloader");
         const openButton = document.getElementById("open-button");
 
+        // Элементы страницы
+        const header = document.getElementById("header");
+        const catImage = document.getElementById("cat-image");
+        const playButton = document.getElementById("play-button");
+        const greeting = document.getElementById("greeting");
+
         openButton.addEventListener("click", () => {
             // Плавное исчезновение прелоадера
             preloader.style.opacity = "0";
             setTimeout(() => {
                 preloader.style.display = "none"; // Полное удаление прелоадера
+
+                // Запуск анимаций после исчезновения прелоадера
+                header.style.animation = "fadeIn 1.5s ease-out forwards";
+                catImage.style.animation = "fadeIn 1.5s ease-out 1.5s forwards";
+                playButton.style.animation = "fadeIn 1.5s ease-out 3s forwards";
+                greeting.style.animation = "fadeIn 1.5s ease-out 4.5s forwards";
             }, 1000); // Задержка для завершения анимации
         });
 
@@ -193,7 +202,6 @@
 
         // Логика для музыки
         const music = document.getElementById("bg-music");
-        const playButton = document.getElementById("play-button");
 
         playButton.addEventListener("click", () => {
             if (music.paused) {
@@ -209,8 +217,6 @@
         music.volume = 0.3;
 
         // Логика для клика на котика
-        const catImage = document.getElementById("cat-image");
-
         catImage.addEventListener("click", (event) => {
             const sounds = ["miu.mp3", "rrmaaau.mp3", "myaaaaaaaau.mp3", "mrrrrrmyau.mp3"];
             const randomSound = sounds[Math.floor(Math.random() * sounds.length)];
