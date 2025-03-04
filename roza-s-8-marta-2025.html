@@ -44,6 +44,7 @@
             text-align: center;
             font-family: Arial, sans-serif;
             overflow-x: hidden;
+            margin: 0; /* Убираем отступы по умолчанию */
         }
 
         @keyframes gradientShift {
@@ -102,11 +103,11 @@
                 opacity: 1;
             }
             90% {
-                transform: translateY(95vh) translateX(30px) rotate(240deg);
+                transform: translateY(100vh) translateX(30px) rotate(240deg); /* Лепестки долетают до низа */
                 opacity: 1;
             }
             100% {
-                transform: translateY(95vh) translateX(30px) rotate(240deg);
+                transform: translateY(100vh) translateX(30px) rotate(240deg);
                 opacity: 0; /* Плавное исчезновение */
             }
         }
