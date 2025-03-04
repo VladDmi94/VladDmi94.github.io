@@ -21,42 +21,11 @@
             75% { background-position: 50% 50%; }
             100% { background-position: 0% 50%; }
         }
-        .overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.9);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 10;
-            transition: opacity 1s ease-in-out;
-        }
-        .overlay button {
-            padding: 15px 30px;
-            font-size: 20px;
-            border: none;
-            background-color: #ff4d6d;
-            color: white;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-        .overlay button:hover {
-            background-color: #d6336c;
-        }
-        .hidden {
-            opacity: 0;
-            pointer-events: none;
-        }
         .container {
             position: relative;
             margin-top: 50px;
             opacity: 0;
-            transform: scale(0.8);
-            transition: opacity 1s ease-in-out, transform 1s ease-in-out;
+            transition: opacity 1.5s ease-in-out;
         }
         img {
             display: block;
@@ -66,7 +35,45 @@
             cursor: pointer;
             margin: 0 auto;
         }
-        h1 { text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); }
+        h1, img, #play-button, #greeting {
+            opacity: 0;
+            transform: scale(0.8);
+            animation: fadeIn 1.5s ease-out forwards;
+        }
+        h1 { animation-delay: 0s; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); }
+        img { animation-delay: 1.5s; }
+        #play-button { animation-delay: 3s; }
+        #greeting { animation-delay: 4.5s; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+            transition: opacity 1.5s ease-in-out, visibility 1.5s ease-in-out;
+        }
+        .overlay.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+        .overlay button {
+            padding: 15px 30px;
+            font-size: 18px;
+            border: none;
+            background-color: #ff4d6d;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
         #play-button {
             margin-top: 15px;
             padding: 10px 20px;
@@ -81,17 +88,6 @@
         }
         #play-button:hover {
             background-color: #d6336c;
-        }
-        #greeting {
-            font-size: 18px;
-            color: #d6336c;
-            margin-top: 20px;
-            font-weight: bold;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-            line-height: 1.5;
-            padding: 10px;
         }
     </style>
 </head>
@@ -108,13 +104,34 @@
         <p id="greeting">Дорогая моя Роза, поздравляю тебя с Международным женским днём 8 марта!💕 Желаю тебе и всем твоим родным крепкого здоровья, никогда не болеть. Будь самой счастливой и дари счастье окружающим. Пусть исполняются все твои мечты!💖</p>
     </div>
     <script>
-        document.getElementById("open-button").addEventListener("click", function() {
+        document.getElementById("open-button").addEventListener("click", () => {
             document.getElementById("overlay").classList.add("hidden");
             setTimeout(() => {
-                document.getElementById("overlay").style.display = "none";
                 document.getElementById("content").style.opacity = "1";
-                document.getElementById("content").style.transform = "scale(1)";
-            }, 1000);
+            }, 1500);
+        });
+
+        const music = document.getElementById("bg-music");
+        const playButton = document.getElementById("play-button");
+        let isPlaying = false;
+        
+        playButton.addEventListener("click", () => {
+            if (!isPlaying) {
+                music.play();
+                playButton.textContent = "⏸ Остановить музыку";
+                isPlaying = true;
+            } else {
+                music.pause();
+                playButton.textContent = "🎵 Включить музыку";
+                isPlaying = false;
+            }
+        });
+        
+        const catImage = document.getElementById("cat-image");
+        catImage.addEventListener("click", (event) => {
+            const sounds = ["miu.mp3", "rrmaaau.mp3", "myaaaaaaaau.mp3", "mrrrrrmyau.mp3"];
+            const randomSound = sounds[Math.floor(Math.random() * sounds.length)];
+            new Audio("images/" + randomSound).play();
         });
     </script>
 </body>
