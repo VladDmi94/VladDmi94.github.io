@@ -21,19 +21,10 @@
             75% { background-position: 50% 50%; }
             100% { background-position: 0% 50%; }
         }
-        .overlay {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: black;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 10;
-            transition: opacity 1s ease-out;
+        .container {
+            position: relative;
+            margin-top: 50px;
         }
-        .hidden { display: none; }
-        .container { position: relative; margin-top: 50px; }
         img {
             display: block;
             width: 100%;
@@ -45,10 +36,12 @@
         h1, img, #play-button, #greeting {
             opacity: 0;
             transform: scale(0.8);
-        }
-        .fadeIn {
             animation: fadeIn 1.5s ease-out forwards;
         }
+        h1 { animation-delay: 0s; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); }
+        img { animation-delay: 1.5s; }
+        #play-button { animation-delay: 3s; }
+        #greeting { animation-delay: 4.5s; }
         @keyframes fadeIn {
             from { opacity: 0; transform: scale(0.8); }
             to { opacity: 1; transform: scale(1); }
@@ -81,16 +74,40 @@
             border-radius: 5px;
             cursor: pointer;
             transition: 0.3s;
+            display: inline-block;
         }
-        #play-button:hover { background-color: #d6336c; }
+        #play-button:hover {
+            background-color: #d6336c;
+        }
+        #greeting {
+            font-size: 18px;
+            color: #d6336c;
+            margin-top: 20px;
+            font-weight: bold;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.5;
+            padding: 10px;
+        }
+        .meow-text {
+            position: absolute;
+            font-size: 24px;
+            color: #ff4d6d;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            opacity: 1;
+            animation: fadeOut 1s ease-in-out forwards;
+        }
+        @keyframes fadeOut {
+            from { opacity: 1; transform: translateY(0); }
+            to { opacity: 0; transform: translateY(-20px); }
+        }
     </style>
 </head>
 <body>
-    <div class="overlay" id="overlay">
-        <button onclick="startGreeting()">Открыть поздравление</button>
-    </div>
     <div class="container">
-        <h1 id="title">С 8 марта, Роза! 🌹</h1>
+        <h1>С 8 марта, Роза! 🌹</h1>
         <img id="cat-image" src="images/cat_with_rose.png" alt="Котик с розой">
         <br>
         <audio id="bg-music" src="images/roza_piano_music.mp3"></audio>
@@ -98,22 +115,17 @@
         <p id="greeting">Дорогая моя Роза, поздравляю тебя с Международным женским днём 8 марта!💕 Желаю тебе и всем твоим родным крепкого здоровья, никогда не болеть. Будь самой счастливой и дари счастье окружающим. Пусть исполняются все твои мечты!💖</p>
     </div>
     <script>
-        function startGreeting() {
-            document.getElementById("overlay").style.opacity = "0";
-            setTimeout(() => document.getElementById("overlay").classList.add("hidden"), 1000);
-            setTimeout(() => document.getElementById("title").classList.add("fadeIn"), 500);
-            setTimeout(() => document.getElementById("cat-image").classList.add("fadeIn"), 2000);
-            setTimeout(() => document.getElementById("play-button").classList.add("fadeIn"), 3500);
-            setTimeout(() => document.getElementById("greeting").classList.add("fadeIn"), 5000);
-        }
         let petalsInterval;
         function createPetal() {
             let petal = document.createElement("div");
             petal.classList.add("petal");
             document.body.appendChild(petal);
             petal.style.left = Math.random() * (window.innerWidth - 30) + "px";
-            setTimeout(() => petal.remove(), 10000);
+            petal.style.animationDuration = (Math.random() * 6 + 5) + "s";
+            petal.style.animationDelay = Math.random() * 3 + "s";
+            setTimeout(() => petal.remove(), parseFloat(petal.style.animationDuration) * 1000);
         }
+        
         const music = document.getElementById("bg-music");
         const playButton = document.getElementById("play-button");
         playButton.addEventListener("click", () => {
@@ -128,6 +140,22 @@
             }
         });
         music.volume = 0.3;
+
+        const catImage = document.getElementById("cat-image");
+        catImage.addEventListener("click", (event) => {
+            const sounds = ["miu.mp3", "rrmaaau.mp3", "myaaaaaaaau.mp3", "mrrrrrmyau.mp3"];
+            const randomSound = sounds[Math.floor(Math.random() * sounds.length)];
+            new Audio("images/" + randomSound).play();
+            
+            let meowText = document.createElement("div");
+            meowText.classList.add("meow-text");
+            meowText.textContent = "Мяу!😸";
+            document.body.appendChild(meowText);
+            
+            meowText.style.left = event.pageX + "px";
+            meowText.style.top = event.pageY + "px";
+            setTimeout(() => meowText.remove(), 1000);
+        });
     </script>
 </body>
 </html>
