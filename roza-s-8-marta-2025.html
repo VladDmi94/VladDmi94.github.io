@@ -108,6 +108,7 @@
         <p id="greeting">Дорогая Роза, с 8 марта! Пусть этот день принесёт тебе радость, улыбки и море счастья! 💖</p>
     </div>
     <script>
+        let petalsInterval;
         function createPetal() {
             let petal = document.createElement("div");
             petal.classList.add("petal");
@@ -117,17 +118,18 @@
             petal.style.animationDelay = Math.random() * 3 + "s";
             setTimeout(() => petal.remove(), parseFloat(petal.style.animationDuration) * 1000);
         }
-        setInterval(createPetal, 500);
-
+        
         const music = document.getElementById("bg-music");
         const playButton = document.getElementById("play-button");
         playButton.addEventListener("click", () => {
             if (music.paused) {
                 music.play();
                 playButton.textContent = "⏸ Остановить музыку";
+                petalsInterval = setInterval(createPetal, 500);
             } else {
                 music.pause();
                 playButton.textContent = "🎵 Включить музыку";
+                clearInterval(petalsInterval);
             }
         });
         music.volume = 0.3;
