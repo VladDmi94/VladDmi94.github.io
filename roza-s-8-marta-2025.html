@@ -91,7 +91,7 @@
             border-radius: 50%;
             opacity: 0.9;
             pointer-events: none;
-            top: -20px; /* Начинаем чуть выше верхней границы экрана */
+            top: -15px; /* Начинаем чуть выше верхней границы экрана */
             box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
             animation: fall 8s ease-in forwards; /* Анимация падения */
         }
@@ -103,11 +103,11 @@
                 opacity: 1;
             }
             90% {
-                transform: translateY(calc(100vh - 20px)) translateX(30px) rotate(240deg); /* Лепестки останавливаются чуть выше нижней границы */
+                transform: translateY(calc(100vh)) translateX(30px) rotate(240deg); /* Лепестки останавливаются чуть выше нижней границы */
                 opacity: 1;
             }
             100% {
-                transform: translateY(calc(100vh - 20px)) translateX(30px) rotate(240deg);
+                transform: translateY(calc(100vh)) translateX(30px) rotate(240deg);
                 opacity: 0; /* Плавное исчезновение */
             }
         }
