@@ -91,7 +91,7 @@
             border-radius: 50%;
             opacity: 0.9;
             pointer-events: none;
-            top: -10vh;
+            top: 0; /* Начинаем с верхней границы экрана */
             box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
             animation: fall 8s ease-in forwards; /* Анимация падения */
         }
@@ -99,7 +99,7 @@
         /* Анимация падения лепестков */
         @keyframes fall {
             0% {
-                transform: translateY(-10vh) translateX(0) rotate(0deg);
+                transform: translateY(0) translateX(0) rotate(0deg);
                 opacity: 1;
             }
             90% {
