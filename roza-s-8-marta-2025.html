@@ -68,6 +68,14 @@
             margin: 0 auto;
             opacity: 0;
             transform: scale(0.8);
+            visibility: hidden; /* Добавлено */
+        }
+
+        /* Заголовок */
+        #header {
+            opacity: 0;
+            transform: scale(0.8);
+            visibility: hidden; /* Добавлено */
         }
 
         /* Анимации */
@@ -107,6 +115,9 @@
             cursor: pointer;
             transition: 0.3s;
             display: inline-block;
+            opacity: 0;
+            transform: scale(0.8);
+            visibility: hidden; /* Добавлено */
         }
         #play-button:hover {
             background-color: #d6336c;
@@ -203,8 +214,17 @@
             elements.preloader.style.opacity = "0";
             setTimeout(() => {
                 elements.preloader.style.display = "none";
+
+                // Показываем заголовок и запускаем его анимацию
+                elements.header.style.visibility = "visible"; // Добавлено
                 elements.header.style.animation = "fadeIn 1.5s ease-out forwards";
+
+                // Показываем картинку и запускаем её анимацию
+                elements.catImage.style.visibility = "visible"; // Добавлено
                 elements.catImage.style.animation = "fadeIn 1.5s ease-out 1.5s forwards";
+
+                // Показываем кнопку и запускаем её анимацию
+                elements.playButton.style.visibility = "visible"; // Добавлено
                 elements.playButton.style.animation = "fadeIn 1.5s ease-out 3s forwards";
             }, 1000);
         });
