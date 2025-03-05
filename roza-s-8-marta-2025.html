@@ -63,7 +63,10 @@
             width: 100%;
             max-width: 800px;
             margin: 0 auto;
-            transition: transform 1.5s ease-out;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: margin-top 1.5s ease-out;
         }
 
         /* Заголовок */
@@ -73,6 +76,7 @@
             visibility: hidden;
             text-align: center;
             margin-bottom: 20px;
+            animation: fadeIn 1.5s ease-out forwards;
         }
 
         /* Кнопка музыки */
@@ -89,6 +93,7 @@
             opacity: 0;
             transform: scale(0.8);
             visibility: hidden;
+            animation: fadeIn 1.5s ease-out 1.5s forwards;
         }
         #play-button:hover {
             background-color: #d6336c;
@@ -105,6 +110,7 @@
             opacity: 0;
             transform: scale(0.8);
             visibility: hidden;
+            animation: fadeIn 1.5s ease-out forwards;
         }
 
         /* Текст поздравления */
@@ -121,6 +127,7 @@
             opacity: 0;
             transform: scale(0.8);
             visibility: hidden;
+            animation: fadeIn 1.5s ease-out forwards;
         }
 
         /* Анимации */
@@ -243,12 +250,14 @@
                 elements.music.play();
                 elements.playButton.textContent = "⏸ Остановить музыку";
 
-                // Смещаем контейнер на самый верх страницы
-                elements.container.style.transform = "translateY(-100%)";
+                // Поднимаем контейнер вверх
+                elements.container.style.marginTop = "-100px"; // Поднимаем на 100px вверх
 
                 // Показываем картинку
-                elements.catImage.style.visibility = "visible";
-                elements.catImage.style.animation = "fadeIn 1.5s ease-out forwards";
+                setTimeout(() => {
+                    elements.catImage.style.visibility = "visible";
+                    elements.catImage.style.animation = "fadeIn 1.5s ease-out forwards";
+                }, 500);
 
                 // Через 1.5 секунды показываем текст поздравления
                 setTimeout(() => {
