@@ -45,11 +45,6 @@
             font-family: Arial, sans-serif;
             overflow-x: hidden;
             margin: 0;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
         }
         @keyframes gradientShift {
             0% { background-position: 0% 50%; }
@@ -60,13 +55,7 @@
         /* Контейнер */
         .container {
             position: relative;
-            width: 100%;
-            max-width: 800px;
-            margin: 0 auto;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            transition: margin-top 1.5s ease-out;
+            margin-top: 50px;
         }
 
         /* Заголовок */
@@ -74,13 +63,11 @@
             opacity: 0;
             transform: scale(0.8);
             visibility: hidden;
-            text-align: center;
-            margin-bottom: 20px;
-            animation: fadeIn 1.5s ease-out forwards;
         }
 
         /* Кнопка музыки */
         #play-button {
+            margin-top: 15px;
             padding: 10px 20px;
             font-size: 16px;
             border: none;
@@ -93,7 +80,6 @@
             opacity: 0;
             transform: scale(0.8);
             visibility: hidden;
-            animation: fadeIn 1.5s ease-out 1.5s forwards;
         }
         #play-button:hover {
             background-color: #d6336c;
@@ -110,7 +96,6 @@
             opacity: 0;
             transform: scale(0.8);
             visibility: hidden;
-            animation: fadeIn 1.5s ease-out forwards;
         }
 
         /* Текст поздравления */
@@ -127,7 +112,6 @@
             opacity: 0;
             transform: scale(0.8);
             visibility: hidden;
-            animation: fadeIn 1.5s ease-out forwards;
         }
 
         /* Анимации */
@@ -198,7 +182,6 @@
             catImage: document.getElementById("cat-image"),
             greeting: document.getElementById("greeting"),
             music: document.getElementById("bg-music"),
-            container: document.querySelector(".container"),
         };
 
         // Звуки для котика
@@ -250,14 +233,9 @@
                 elements.music.play();
                 elements.playButton.textContent = "⏸ Остановить музыку";
 
-                // Поднимаем контейнер вверх
-                elements.container.style.marginTop = "-100px"; // Поднимаем на 100px вверх
-
                 // Показываем картинку
-                setTimeout(() => {
-                    elements.catImage.style.visibility = "visible";
-                    elements.catImage.style.animation = "fadeIn 1.5s ease-out forwards";
-                }, 500);
+                elements.catImage.style.visibility = "visible";
+                elements.catImage.style.animation = "fadeIn 1.5s ease-out forwards";
 
                 // Через 1.5 секунды показываем текст поздравления
                 setTimeout(() => {
