@@ -6,6 +6,7 @@
     <link rel="icon" type="image/png" href="images/roza_favicon.png">
     <title>С 8 марта, Роза!</title>
     <style>
+        /* Стили для прелоадера (загрузочного экрана) */
         #preloader {
             position: fixed;
             top: 0;
@@ -19,6 +20,7 @@
             z-index: 1000;
             transition: opacity 1s ease-out;
         }
+        /* Стили для кнопки открытия поздравления */
         #open-button {
             padding: 15px 30px;
             font-size: 20px;
@@ -32,6 +34,7 @@
         #open-button:hover {
             transform: scale(1.1);
         }
+        /* Основные стили для страницы */
         body {
             background: linear-gradient(45deg, #ffebf0, #ffb3c6, #ffcce6, #cceeff, #e6ccff, #fff5e6);
             background-size: 300% 300%;
@@ -41,6 +44,7 @@
             overflow-x: hidden;
             margin: 0;
         }
+        /* Анимация для фона */
         @keyframes gradientShift {
             0% { background-position: 0% 50%; }
             25% { background-position: 50% 50%; }
@@ -48,10 +52,12 @@
             75% { background-position: 50% 50%; }
             100% { background-position: 0% 50%; }
         }
+        /* Контейнер для основного содержимого */
         .container {
             position: relative;
             margin-top: 50px;
         }
+        /* Стили для изображения котика */
         img {
             display: block;
             width: 100%;
@@ -62,6 +68,7 @@
             opacity: 0;
             transform: scale(0.8);
         }
+        /* Анимация для появления элементов */
         h1, #play-button {
             opacity: 0;
             transform: scale(0.8);
@@ -70,6 +77,7 @@
             from { opacity: 0; transform: scale(0.8); }
             to { opacity: 1; transform: scale(1); }
         }
+        /* Стили для лепестков розы */
         .petal {
             position: absolute;
             width: 20px;
@@ -82,6 +90,7 @@
             box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
             animation: fall 8s ease-in forwards;
         }
+        /* Анимация для падения лепестков */
         @keyframes fall {
             0% {
                 transform: translateY(0) translateX(0) rotate(0deg);
@@ -96,6 +105,7 @@
                 opacity: 0;
             }
         }
+        /* Стили для кнопки воспроизведения музыки */
         #play-button {
             margin-top: 15px;
             padding: 10px 20px;
@@ -111,6 +121,7 @@
         #play-button:hover {
             background-color: #d6336c;
         }
+        /* Стили для текста поздравления */
         #greeting {
             font-size: 18px;
             color: #d6336c;
@@ -125,6 +136,7 @@
             transform: scale(0.8);
             transition: opacity 1.5s ease-out, transform 1.5s ease-out;
         }
+        /* Стили для текста "Мяу!" */
         .meow-text {
             position: absolute;
             font-size: 24px;
@@ -134,6 +146,7 @@
             opacity: 1;
             animation: fadeOut 1s ease-in-out forwards;
         }
+        /* Анимация для исчезновения текста "Мяу!" */
         @keyframes fadeOut {
             from { opacity: 1; transform: translateY(0); }
             to { opacity: 0; transform: translateY(-20px); }
@@ -141,24 +154,32 @@
     </style>
 </head>
 <body>
+    <!-- Прелоадер с кнопкой открытия поздравления -->
     <div id="preloader">
         <button id="open-button">🎁Открыть поздравление</button>
     </div>
+    <!-- Основной контейнер с содержимым -->
     <div class="container">
         <h1 id="header">С 8 марта, Роза! 🌹</h1>
         <img id="cat-image" src="images/cat_with_rose.png" alt="Котик с розой">
         <br>
+        <!-- Аудио для фоновой музыки -->
         <audio id="bg-music" src="images/roza_piano_music.mp3"></audio>
+        <!-- Кнопка для воспроизведения музыки -->
         <button id="play-button">📖🎶Прочитать поздравление под музыку</button>
+        <!-- Текст поздравления -->
         <p id="greeting">Дорогая моя Роза, поздравляю тебя с Международным женским днём 8 марта!💕 Желаю тебе и всем твоим родным крепкого здоровья, никогда не болеть. Будь самой счастливой и дари счастье окружающим. Пусть исполняются все твои мечты!💖</p>
     </div>
     <script>
+        // Получаем элементы DOM
         const preloader = document.getElementById("preloader");
         const openButton = document.getElementById("open-button");
         const header = document.getElementById("header");
         const catImage = document.getElementById("cat-image");
         const playButton = document.getElementById("play-button");
         const greeting = document.getElementById("greeting");
+
+        // Обработчик клика по кнопке открытия поздравления
         openButton.addEventListener("click", () => {
             preloader.style.opacity = "0";
             setTimeout(() => {
@@ -168,7 +189,11 @@
                 playButton.style.animation = "fadeIn 1.5s ease-out 3s forwards";
             }, 1000);
         });
+
+        // Интервал для создания лепестков
         let petalsInterval;
+
+        // Функция для создания лепестков
         function createPetal() {
             let petal = document.createElement("div");
             petal.classList.add("petal");
@@ -181,8 +206,12 @@
                 setTimeout(() => petal.remove(), 2000);
             }, parseFloat(petal.style.animationDuration) * 1000);
         }
+
+        // Получаем элемент аудио
         const music = document.getElementById("bg-music");
         let isFirstClick = true;
+
+        // Обработчик клика по кнопке воспроизведения музыки
         playButton.addEventListener("click", () => {
             if (music.paused) {
                 music.play();
@@ -200,7 +229,11 @@
                 clearInterval(petalsInterval);
             }
         });
+
+        // Устанавливаем громкость музыки
         music.volume = 0.3;
+
+        // Обработчик клика по изображению котика
         catImage.addEventListener("click", (event) => {
             const sounds = ["miu.mp3", "rrmaaau.mp3", "myaaaaaaaau.mp3", "mrrrrrmyau.mp3"];
             const randomSound = sounds[Math.floor(Math.random() * sounds.length)];
