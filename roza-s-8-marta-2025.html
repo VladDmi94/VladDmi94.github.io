@@ -45,10 +45,11 @@
             font-family: Arial, sans-serif;
             overflow-x: hidden;
             margin: 0;
-            min-height: 100vh;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
+            min-height: 100vh;
         }
         @keyframes gradientShift {
             0% { background-position: 0% 50%; }
@@ -62,7 +63,7 @@
             width: 100%;
             max-width: 800px;
             margin: 0 auto;
-            transition: margin-top 1.5s ease-out;
+            transition: transform 1.5s ease-out;
         }
 
         /* Заголовок */
@@ -242,8 +243,8 @@
                 elements.music.play();
                 elements.playButton.textContent = "⏸ Остановить музыку";
 
-                // Смещаем контейнер наверх
-                elements.container.style.marginTop = "0";
+                // Смещаем контейнер вверх
+                elements.container.style.transform = "translateY(-50px)";
 
                 // Показываем картинку
                 elements.catImage.style.visibility = "visible";
