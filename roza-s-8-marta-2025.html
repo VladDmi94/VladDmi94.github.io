@@ -92,7 +92,7 @@
             max-width: 600px;
             height: auto;
             cursor: pointer;
-            margin: 0 auto;
+            margin: 20px auto 0;
             opacity: 0;
             transform: scale(0.8);
             visibility: hidden;
@@ -112,7 +112,6 @@
             opacity: 0;
             transform: scale(0.8);
             visibility: hidden;
-            transition: opacity 1.5s ease-out, transform 1.5s ease-out;
         }
 
         /* Анимации */
@@ -231,13 +230,15 @@
                 elements.music.play();
                 elements.playButton.textContent = "⏸ Остановить музыку";
 
-                // Показываем картинку и текст поздравления
+                // Показываем картинку
                 elements.catImage.style.visibility = "visible";
                 elements.catImage.style.animation = "fadeIn 1.5s ease-out forwards";
 
-                elements.greeting.style.visibility = "visible";
-                elements.greeting.style.opacity = "1";
-                elements.greeting.style.transform = "scale(1)";
+                // Через 1.5 секунды показываем текст поздравления
+                setTimeout(() => {
+                    elements.greeting.style.visibility = "visible";
+                    elements.greeting.style.animation = "fadeIn 1.5s ease-out forwards";
+                }, 1500);
 
                 // Запускаем лепестки
                 petalsInterval = setInterval(createPetal, 500);
