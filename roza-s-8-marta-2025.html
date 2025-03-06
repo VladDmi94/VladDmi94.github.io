@@ -151,6 +151,22 @@
             transition: opacity 1.5s ease-out, transform 1.5s ease-out;
         }
 
+        /* Подпись */
+        #signature {
+            font-size: 18px;
+            color: #d6336c;
+            margin-top: 10px;
+            font-weight: bold;
+            max-width: 600px;
+            width: 90%;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: right; /* Выравниваем по правому краю */
+            opacity: 0;
+            transform: scale(0.8);
+            transition: opacity 1.5s ease-out 2s, transform 1.5s ease-out 2s; /* Задержка 2 секунды */
+        }
+
         /* Текст "Мяу!" */
         .meow-text {
             position: absolute;
@@ -182,6 +198,10 @@
                 font-size: 14px;
                 min-height: 50px;
             }
+            #signature {
+                font-size: 16px;
+                width: 80%;
+            }
         }
     </style>
 </head>
@@ -199,6 +219,7 @@
         <audio id="bg-music" src="images/roza_piano_music.mp3"></audio>
         <button id="play-button">📖Открыть поздравление и<br>🎶Включить музыку</button>
         <p id="greeting">Дорогая Розачка, поздравляю тебя с Международным женским днём 8 марта!💕 Желаю тебе и всем твоим родным крепкого здоровья, никогда не болеть. Будь самой счастливой и дари счастье остальным. Пусть исполнятся все твои мечты!💖</p>
+        <p id="signature">Твой Влад</p> <!-- Добавленная подпись -->
     </div>
 
     <script>
@@ -210,6 +231,7 @@
             catImage: document.getElementById("cat-image"),
             playButton: document.getElementById("play-button"),
             greeting: document.getElementById("greeting"),
+            signature: document.getElementById("signature"), // Добавлено
             music: document.getElementById("bg-music"),
         };
 
@@ -268,13 +290,14 @@
                 petalsInterval = setInterval(createPetal, 500);
                 elements.greeting.style.opacity = "1";
                 elements.greeting.style.transform = "scale(1)";
+                elements.signature.style.opacity = "1"; // Показываем подпись
+                elements.signature.style.transform = "scale(1)";
                 if (isFirstClick) {
                     isFirstClick = false;
                 }
             } else {
                 elements.music.pause();
                 elements.playButton.innerHTML = "🎵Вернуть музыку";
-                // Убираем clearInterval, чтобы лепестки продолжали падать
             }
         });
 
