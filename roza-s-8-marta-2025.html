@@ -61,25 +61,25 @@
         /* Изображение котика */
         #cat-image {
             display: block;
-            width: 90%; /* Уменьшаем ширину для мобильных устройств */
+            width: 90%;
             max-width: 600px;
             height: auto;
             cursor: pointer;
             margin: 0 auto;
             opacity: 0;
             transform: scale(0.8);
-            visibility: hidden; /* Добавлено */
+            visibility: hidden;
         }
 
         /* Заголовок */
         #header {
             opacity: 0;
             transform: scale(0.8);
-            visibility: hidden; /* Добавлено */
-            font-size: 32px; /* Размер шрифта для заголовка */
-            color: #d6336c; /* Цвет текста */
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /* Тень текста */
-            margin-bottom: 20px; /* Отступ снизу */
+            visibility: hidden;
+            font-size: 32px;
+            color: #d6336c;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            margin-bottom: 20px;
         }
 
         /* Анимации */
@@ -121,14 +121,14 @@
             display: inline-block;
             opacity: 0;
             transform: scale(0.8);
-            visibility: hidden; /* Добавлено */
-            width: auto; /* Ширина по содержимому */
-            max-width: 100%; /* Не шире картинки */
-            min-height: 60px; /* Фиксированная высота для двух строк */
-            box-sizing: border-box; /* Чтобы padding не увеличивал ширину */
-            white-space: normal; /* Разрешаем перенос текста */
-            line-height: 1.4; /* Отступ между строками */
-            text-align: center; /* Выравнивание текста по центру */
+            visibility: hidden;
+            width: auto;
+            max-width: 100%;
+            min-height: 60px;
+            box-sizing: border-box;
+            white-space: normal;
+            line-height: 1.4;
+            text-align: center;
         }
         #play-button:hover {
             background-color: #d6336c;
@@ -140,8 +140,8 @@
             color: #d6336c;
             margin-top: 20px;
             font-weight: bold;
-            max-width: 600px; /* Максимальная ширина текста */
-            width: 90%; /* Ширина текста пропорциональна картинке */
+            max-width: 600px;
+            width: 90%;
             margin-left: auto;
             margin-right: auto;
             line-height: 1.5;
@@ -160,28 +160,27 @@
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
             opacity: 1;
             animation: fadeOut 1s ease-in-out forwards;
-            transform: translateY(-50px); /* Сдвигаем текст вверх */
         }
         @keyframes fadeOut {
-            from { opacity: 1; transform: translateY(-50px); }
-            to { opacity: 0; transform: translateY(-70px); }
+            from { opacity: 1; transform: translateY(0); }
+            to { opacity: 0; transform: translateY(-20px); }
         }
 
         /* Медиа-запрос для мобильных устройств */
         @media (max-width: 600px) {
             #cat-image {
-                width: 80%; /* Уменьшаем ширину картинки для мобильных устройств */
+                width: 80%;
             }
             #header {
-                font-size: 24px; /* Уменьшаем размер шрифта заголовка */
+                font-size: 24px;
             }
             #greeting {
-                font-size: 16px; /* Уменьшаем размер шрифта поздравления */
-                width: 80%; /* Ширина текста пропорциональна картинке */
+                font-size: 16px;
+                width: 80%;
             }
             #play-button {
-                font-size: 14px; /* Уменьшаем размер шрифта для мобильных устройств */
-                min-height: 50px; /* Уменьшаем высоту для мобильных устройств */
+                font-size: 14px;
+                min-height: 50px;
             }
         }
     </style>
@@ -220,7 +219,7 @@
         // Переменные для управления лепестками
         let petalsInterval;
         let petalCount = 0;
-        const maxPetals = 50; // Максимальное количество лепестков
+        const maxPetals = 50;
 
         // Функция для создания лепестка
         function createPetal() {
@@ -247,15 +246,15 @@
                 elements.preloader.style.display = "none";
 
                 // Показываем заголовок и запускаем его анимацию
-                elements.header.style.visibility = "visible"; // Добавлено
+                elements.header.style.visibility = "visible";
                 elements.header.style.animation = "fadeIn 1.5s ease-out forwards";
 
                 // Показываем картинку и запускаем её анимацию
-                elements.catImage.style.visibility = "visible"; // Добавлено
+                elements.catImage.style.visibility = "visible";
                 elements.catImage.style.animation = "fadeIn 1.5s ease-out 1.5s forwards";
 
                 // Показываем кнопку и запускаем её анимацию
-                elements.playButton.style.visibility = "visible"; // Добавлено
+                elements.playButton.style.visibility = "visible";
                 elements.playButton.style.animation = "fadeIn 1.5s ease-out 3s forwards";
             }, 1000);
         });
@@ -265,18 +264,16 @@
         elements.playButton.addEventListener("click", () => {
             if (elements.music.paused) {
                 elements.music.play();
-                elements.playButton.innerHTML = "⏸ Остановить музыку"; /* Одна строка */
+                elements.playButton.innerHTML = "⏸ Остановить музыку";
                 petalsInterval = setInterval(createPetal, 500);
                 elements.greeting.style.opacity = "1";
                 elements.greeting.style.transform = "scale(1)";
                 if (isFirstClick) {
-                    // Убираем прокрутку страницы вниз
-                    // elements.greeting.scrollIntoView({ behavior: "smooth", block: "center" });
                     isFirstClick = false;
                 }
             } else {
                 elements.music.pause();
-                elements.playButton.innerHTML = "🎵Вернуть музыку"; /* Одна строка */
+                elements.playButton.innerHTML = "🎵Вернуть музыку";
                 clearInterval(petalsInterval);
             }
         });
@@ -294,8 +291,8 @@
             meowText.textContent = "Мяу!😸";
             document.body.appendChild(meowText);
 
-            meowText.style.left = `${event.pageX}px`;
-            meowText.style.top = `${event.pageY - 50}px`; /* Сдвигаем текст вверх на 50px */
+            meowText.style.left = `${event.pageX - 20}px`;
+            meowText.style.top = `${event.pageY - 20}px`;
         });
     </script>
 </body>
