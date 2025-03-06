@@ -68,14 +68,17 @@
             margin: 0 auto;
             opacity: 0;
             transform: scale(0.8);
-            visibility: hidden; /* Добавлено */
+            visibility: hidden;
         }
 
         /* Заголовок */
         #header {
             opacity: 0;
             transform: scale(0.8);
-            visibility: hidden; /* Добавлено */
+            visibility: hidden;
+            font-size: 32px;
+            color: #d6336c;
+            margin-bottom: 20px;
         }
 
         /* Анимации */
@@ -117,7 +120,7 @@
             display: inline-block;
             opacity: 0;
             transform: scale(0.8);
-            visibility: hidden; /* Добавлено */
+            visibility: hidden;
         }
         #play-button:hover {
             background-color: #d6336c;
@@ -137,6 +140,7 @@
             opacity: 0;
             transform: scale(0.8);
             transition: opacity 1.5s ease-out, transform 1.5s ease-out;
+            animation: fadeIn 2s ease-out 4s forwards; /* Добавлено */
         }
 
         /* Текст "Мяу!" */
@@ -152,6 +156,24 @@
         @keyframes fadeOut {
             from { opacity: 1; transform: translateY(0); }
             to { opacity: 0; transform: translateY(-20px); }
+        }
+
+        /* Адаптация для мобильных устройств */
+        @media (max-width: 768px) {
+            #cat-image {
+                max-width: 90%;
+            }
+            #greeting {
+                font-size: 16px;
+                padding: 5px;
+            }
+            #play-button {
+                font-size: 14px;
+                padding: 8px 16px;
+            }
+            #header {
+                font-size: 24px;
+            }
         }
     </style>
 </head>
@@ -216,15 +238,15 @@
                 elements.preloader.style.display = "none";
 
                 // Показываем заголовок и запускаем его анимацию
-                elements.header.style.visibility = "visible"; // Добавлено
+                elements.header.style.visibility = "visible";
                 elements.header.style.animation = "fadeIn 1.5s ease-out forwards";
 
                 // Показываем картинку и запускаем её анимацию
-                elements.catImage.style.visibility = "visible"; // Добавлено
+                elements.catImage.style.visibility = "visible";
                 elements.catImage.style.animation = "fadeIn 1.5s ease-out 1.5s forwards";
 
                 // Показываем кнопку и запускаем её анимацию
-                elements.playButton.style.visibility = "visible"; // Добавлено
+                elements.playButton.style.visibility = "visible";
                 elements.playButton.style.animation = "fadeIn 1.5s ease-out 3s forwards";
             }, 1000);
         });
