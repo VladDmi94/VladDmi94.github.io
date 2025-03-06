@@ -61,24 +61,22 @@
         /* Изображение котика */
         #cat-image {
             display: block;
-            width: 100%;
+            width: 90%; /* Уменьшаем ширину для мобильных устройств */
             max-width: 600px;
             height: auto;
             cursor: pointer;
             margin: 0 auto;
             opacity: 0;
             transform: scale(0.8);
-            visibility: hidden;
+            visibility: hidden; /* Добавлено */
         }
 
         /* Заголовок */
         #header {
             opacity: 0;
             transform: scale(0.8);
-            visibility: hidden;
-            font-size: 32px;
-            color: #d6336c;
-            margin-bottom: 20px;
+            visibility: hidden; /* Добавлено */
+            font-size: 24px; /* Уменьшаем размер шрифта для мобильных устройств */
         }
 
         /* Анимации */
@@ -120,7 +118,7 @@
             display: inline-block;
             opacity: 0;
             transform: scale(0.8);
-            visibility: hidden;
+            visibility: hidden; /* Добавлено */
         }
         #play-button:hover {
             background-color: #d6336c;
@@ -140,7 +138,6 @@
             opacity: 0;
             transform: scale(0.8);
             transition: opacity 1.5s ease-out, transform 1.5s ease-out;
-            animation: fadeIn 2s ease-out 4s forwards; /* Добавлено */
         }
 
         /* Текст "Мяу!" */
@@ -158,21 +155,16 @@
             to { opacity: 0; transform: translateY(-20px); }
         }
 
-        /* Адаптация для мобильных устройств */
-        @media (max-width: 768px) {
+        /* Медиа-запрос для мобильных устройств */
+        @media (max-width: 600px) {
             #cat-image {
-                max-width: 90%;
-            }
-            #greeting {
-                font-size: 16px;
-                padding: 5px;
-            }
-            #play-button {
-                font-size: 14px;
-                padding: 8px 16px;
+                width: 80%; /* Уменьшаем ширину картинки для мобильных устройств */
             }
             #header {
-                font-size: 24px;
+                font-size: 20px; /* Уменьшаем размер шрифта заголовка */
+            }
+            #greeting {
+                font-size: 16px; /* Уменьшаем размер шрифта поздравления */
             }
         }
     </style>
@@ -238,15 +230,15 @@
                 elements.preloader.style.display = "none";
 
                 // Показываем заголовок и запускаем его анимацию
-                elements.header.style.visibility = "visible";
+                elements.header.style.visibility = "visible"; // Добавлено
                 elements.header.style.animation = "fadeIn 1.5s ease-out forwards";
 
                 // Показываем картинку и запускаем её анимацию
-                elements.catImage.style.visibility = "visible";
+                elements.catImage.style.visibility = "visible"; // Добавлено
                 elements.catImage.style.animation = "fadeIn 1.5s ease-out 1.5s forwards";
 
                 // Показываем кнопку и запускаем её анимацию
-                elements.playButton.style.visibility = "visible";
+                elements.playButton.style.visibility = "visible"; // Добавлено
                 elements.playButton.style.animation = "fadeIn 1.5s ease-out 3s forwards";
             }, 1000);
         });
@@ -261,7 +253,8 @@
                 elements.greeting.style.opacity = "1";
                 elements.greeting.style.transform = "scale(1)";
                 if (isFirstClick) {
-                    elements.greeting.scrollIntoView({ behavior: "smooth", block: "center" });
+                    // Убираем прокрутку страницы вниз
+                    // elements.greeting.scrollIntoView({ behavior: "smooth", block: "center" });
                     isFirstClick = false;
                 }
             } else {
