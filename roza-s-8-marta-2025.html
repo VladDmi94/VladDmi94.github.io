@@ -304,7 +304,8 @@
         // Обработчик клика по котику
         elements.catImage.addEventListener("click", (event) => {
             const randomSound = sounds[Math.floor(Math.random() * sounds.length)];
-            new Audio(`images/${randomSound}`).play();
+            const audio = new Audio(`images/${randomSound}`);
+            audio.play();
 
             const meowText = document.createElement("div");
             meowText.classList.add("meow-text");
