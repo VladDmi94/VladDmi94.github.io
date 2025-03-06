@@ -58,33 +58,6 @@
             margin-top: 50px;
         }
 
-        /* Заголовок */
-        #header {
-            opacity: 0;
-            transform: scale(0.8);
-            visibility: hidden;
-        }
-
-        /* Кнопка музыки */
-        #play-button {
-            margin-top: 15px;
-            padding: 10px 20px;
-            font-size: 16px;
-            border: none;
-            background-color: #ff4d6d;
-            color: white;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: 0.3s;
-            display: inline-block;
-            opacity: 0;
-            transform: scale(0.8);
-            visibility: hidden;
-        }
-        #play-button:hover {
-            background-color: #d6336c;
-        }
-
         /* Изображение котика */
         #cat-image {
             display: block;
@@ -92,26 +65,17 @@
             max-width: 600px;
             height: auto;
             cursor: pointer;
-            margin: 20px auto 0;
+            margin: 0 auto;
             opacity: 0;
             transform: scale(0.8);
-            visibility: hidden;
+            visibility: hidden; /* Добавлено */
         }
 
-        /* Текст поздравления */
-        #greeting {
-            font-size: 18px;
-            color: #d6336c;
-            margin-top: 20px;
-            font-weight: bold;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-            line-height: 1.5;
-            padding: 10px;
+        /* Заголовок */
+        #header {
             opacity: 0;
             transform: scale(0.8);
-            visibility: hidden;
+            visibility: hidden; /* Добавлено */
         }
 
         /* Анимации */
@@ -139,6 +103,42 @@
             100% { transform: translateY(calc(100vh - 5px)) translateX(30px) rotate(240deg); opacity: 0; }
         }
 
+        /* Кнопка музыки */
+        #play-button {
+            margin-top: 15px;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            background-color: #ff4d6d;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+            display: inline-block;
+            opacity: 0;
+            transform: scale(0.8);
+            visibility: hidden; /* Добавлено */
+        }
+        #play-button:hover {
+            background-color: #d6336c;
+        }
+
+        /* Текст поздравления */
+        #greeting {
+            font-size: 18px;
+            color: #d6336c;
+            margin-top: 20px;
+            font-weight: bold;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.5;
+            padding: 10px;
+            opacity: 0;
+            transform: scale(0.8);
+            transition: opacity 1.5s ease-out, transform 1.5s ease-out;
+        }
+
         /* Текст "Мяу!" */
         .meow-text {
             position: absolute;
@@ -164,13 +164,12 @@
     <!-- Основной контент -->
     <div class="container">
         <h1 id="header">С 8 марта, Роза! 🌹</h1>
-        <button id="play-button">📖🎶Прочитать поздравление под музыку</button>
         <img id="cat-image" src="images/cat_with_rose.png" alt="Котик с розой">
+        <br>
+        <audio id="bg-music" src="images/roza_piano_music.mp3"></audio>
+        <button id="play-button">📖🎶Прочитать поздравление под музыку</button>
         <p id="greeting">Дорогая моя Роза, поздравляю тебя с Международным женским днём 8 марта!💕 Желаю тебе и всем твоим родным крепкого здоровья, никогда не болеть. Будь самой счастливой и дари счастье окружающим. Пусть исполняются все твои мечты!💖</p>
     </div>
-
-    <!-- Аудио для фоновой музыки -->
-    <audio id="bg-music" src="images/roza_piano_music.mp3"></audio>
 
     <script>
         // Константы для элементов
@@ -178,8 +177,8 @@
             preloader: document.getElementById("preloader"),
             openButton: document.getElementById("open-button"),
             header: document.getElementById("header"),
-            playButton: document.getElementById("play-button"),
             catImage: document.getElementById("cat-image"),
+            playButton: document.getElementById("play-button"),
             greeting: document.getElementById("greeting"),
             music: document.getElementById("bg-music"),
         };
@@ -217,12 +216,16 @@
                 elements.preloader.style.display = "none";
 
                 // Показываем заголовок и запускаем его анимацию
-                elements.header.style.visibility = "visible";
+                elements.header.style.visibility = "visible"; // Добавлено
                 elements.header.style.animation = "fadeIn 1.5s ease-out forwards";
 
+                // Показываем картинку и запускаем её анимацию
+                elements.catImage.style.visibility = "visible"; // Добавлено
+                elements.catImage.style.animation = "fadeIn 1.5s ease-out 1.5s forwards";
+
                 // Показываем кнопку и запускаем её анимацию
-                elements.playButton.style.visibility = "visible";
-                elements.playButton.style.animation = "fadeIn 1.5s ease-out 1.5s forwards";
+                elements.playButton.style.visibility = "visible"; // Добавлено
+                elements.playButton.style.animation = "fadeIn 1.5s ease-out 3s forwards";
             }, 1000);
         });
 
@@ -232,21 +235,9 @@
             if (elements.music.paused) {
                 elements.music.play();
                 elements.playButton.textContent = "⏸ Остановить музыку";
-
-                // Показываем картинку
-                elements.catImage.style.visibility = "visible";
-                elements.catImage.style.animation = "fadeIn 1.5s ease-out forwards";
-
-                // Через 1.5 секунды показываем текст поздравления
-                setTimeout(() => {
-                    elements.greeting.style.visibility = "visible";
-                    elements.greeting.style.animation = "fadeIn 1.5s ease-out forwards";
-                }, 1500);
-
-                // Запускаем лепестки
                 petalsInterval = setInterval(createPetal, 500);
-
-                // Прокручиваем страницу к поздравлению
+                elements.greeting.style.opacity = "1";
+                elements.greeting.style.transform = "scale(1)";
                 if (isFirstClick) {
                     elements.greeting.scrollIntoView({ behavior: "smooth", block: "center" });
                     isFirstClick = false;
