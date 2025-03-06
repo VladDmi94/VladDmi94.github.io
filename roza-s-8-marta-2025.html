@@ -6,6 +6,22 @@
     <link rel="icon" type="image/png" href="images/roza_favicon.png">
     <title>С 8 марта, Роза!</title>
     <style>
+        /* Общие стили */
+        body {
+            background: linear-gradient(45deg, #ffebf0, #ffb3c6, #ffcce6, #cceeff, #e6ccff, #fff5e6);
+            background-size: 300% 300%;
+            animation: gradientShift 60s infinite alternate ease-in-out;
+            text-align: center;
+            font-family: Arial, sans-serif;
+            overflow-x: hidden;
+            margin: 0;
+        }
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
         /* Прелоадер */
         #preloader {
             position: fixed;
@@ -18,7 +34,7 @@
             justify-content: center;
             align-items: center;
             z-index: 1000;
-            transition: opacity 1s ease-out, visibility 1s ease-out; /* Плавное исчезновение */
+            transition: opacity 1s ease-out, visibility 1s ease-out;
         }
 
         /* Кнопка открытия */
@@ -36,44 +52,66 @@
             transform: scale(1.1);
         }
 
-        /* Основные стили */
-        body {
-            background: linear-gradient(45deg, #ffebf0, #ffb3c6, #ffcce6, #cceeff, #e6ccff, #fff5e6);
-            background-size: 300% 300%;
-            animation: gradientShift 60s infinite alternate ease-in-out;
-            text-align: center;
-            font-family: Arial, sans-serif;
-            overflow-x: hidden;
-            margin: 0;
-        }
-        @keyframes gradientShift {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        /* Фоновые эффекты (мерцающие звёзды) */
-        body::before {
-            content: "";
+        /* Контейнер для звёзд */
+        .stars-container {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: radial-gradient(circle, transparent 10%, rgba(255, 255, 255, 0.1) 10%);
-            background-size: 20px 20px;
             pointer-events: none;
-            animation: twinkle 3s infinite; /* Анимация мерцания */
-        }
-        @keyframes twinkle {
-            0%, 100% { opacity: 0.5; }
-            50% { opacity: 1; }
+            z-index: 1;
         }
 
-        /* Контейнер */
+        /* Звёзды */
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: white;
+            border-radius: 50%;
+            box-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
+            animation: twinkle 2s infinite ease-in-out;
+        }
+        @keyframes twinkle {
+            0%, 100% { opacity: 0; transform: scale(0.5); }
+            50% { opacity: 1; transform: scale(1); }
+        }
+
+        /* Основной контейнер */
         .container {
             position: relative;
             margin-top: 50px;
+            z-index: 2;
+        }
+
+        /* Заголовок */
+        #header {
+            opacity: 0;
+            transform: scale(0.8);
+            visibility: hidden;
+            animation: fadeIn 1.5s ease-out forwards;
+        }
+
+        /* Кнопка музыки */
+        #play-button {
+            margin-top: 15px;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            background-color: #ff4d6d;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+            display: inline-block;
+            opacity: 0;
+            transform: scale(0.8);
+            visibility: hidden;
+            animation: fadeIn 1.5s ease-out 1.5s forwards;
+        }
+        #play-button:hover {
+            background-color: #d6336c;
         }
 
         /* Изображение котика */
@@ -83,23 +121,27 @@
             max-width: 600px;
             height: auto;
             cursor: pointer;
-            margin: 0 auto;
+            margin: 20px auto;
             opacity: 0;
             transform: scale(0.8);
             visibility: hidden;
+            animation: fadeIn 1.5s ease-out 3s forwards;
         }
 
-        /* Заголовок */
-        #header {
+        /* Текст поздравления */
+        #greeting {
+            font-size: 18px;
+            color: #d6336c;
+            margin-top: 20px;
+            font-weight: bold;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.5;
+            padding: 10px;
             opacity: 0;
             transform: scale(0.8);
-            visibility: hidden;
-        }
-
-        /* Анимации */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: scale(0.8); }
-            to { opacity: 1; transform: scale(1); }
+            transition: opacity 1.5s ease-out, transform 1.5s ease-out;
         }
 
         /* Лепестки */
@@ -121,42 +163,6 @@
             100% { transform: translateY(calc(100vh - 5px)) translateX(30px) rotate(240deg); opacity: 0; }
         }
 
-        /* Кнопка музыки */
-        #play-button {
-            margin-top: 15px;
-            padding: 10px 20px;
-            font-size: 16px;
-            border: none;
-            background-color: #ff4d6d;
-            color: white;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: 0.3s;
-            display: inline-block;
-            opacity: 0;
-            transform: scale(0.8);
-            visibility: hidden;
-        }
-        #play-button:hover {
-            background-color: #d6336c;
-        }
-
-        /* Текст поздравления */
-        #greeting {
-            font-size: 18px;
-            color: #d6336c;
-            margin-top: 20px;
-            font-weight: bold;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-            line-height: 1.5;
-            padding: 10px;
-            opacity: 0;
-            transform: scale(0.8);
-            transition: opacity 1.5s ease-out, transform 1.5s ease-out;
-        }
-
         /* Текст "Мяу!" */
         .meow-text {
             position: absolute;
@@ -171,6 +177,12 @@
             from { opacity: 1; transform: translateY(0); }
             to { opacity: 0; transform: translateY(-20px); }
         }
+
+        /* Анимация появления */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
     </style>
 </head>
 <body>
@@ -178,14 +190,15 @@
     <div id="preloader">
         <button id="open-button">🎁</button>
     </div>
-
+    
+    <!-- Контейнер для звёзд -->
+    <div class="stars-container"></div>
+    
     <!-- Основной контент -->
     <div class="container">
         <h1 id="header">С 8 марта, Роза! 🌹</h1>
-        <img id="cat-image" src="images/cat_with_rose.png" alt="Котик с розой">
-        <br>
-        <audio id="bg-music" src="images/roza_piano_music.mp3"></audio>
         <button id="play-button">📖Открыть поздравление и 🎶Включить музыку</button>
+        <img id="cat-image" src="images/cat_with_rose.png" alt="Котик с розой">
         <p id="greeting">Дорогая Розачка, поздравляю тебя с Международным женским днём 8 марта!💕 Желаю тебе и всем твоим родным крепкого здоровья, никогда не болеть. Будь самой счастливой и дари счастье остальным. Пусть исполнятся все твои мечты!💖</p>
     </div>
 
@@ -195,8 +208,8 @@
             preloader: document.getElementById("preloader"),
             openButton: document.getElementById("open-button"),
             header: document.getElementById("header"),
-            catImage: document.getElementById("cat-image"),
             playButton: document.getElementById("play-button"),
+            catImage: document.getElementById("cat-image"),
             greeting: document.getElementById("greeting"),
             music: document.getElementById("bg-music"),
         };
@@ -207,7 +220,7 @@
         // Переменные для управления лепестками
         let petalsInterval;
         let petalCount = 0;
-        const maxPetals = 50; // Максимальное количество лепестков
+        const maxPetals = 50;
 
         // Функция для создания лепестка
         function createPetal() {
@@ -226,26 +239,45 @@
                 petalCount--;
             }, parseFloat(petal.style.animationDuration) * 1000);
         }
+        
+        // Функция для создания звёзд
+        function createStars() {
+            const starCount = 100;
+            const starsContainer = document.querySelector(".stars-container");
 
+            for (let i = 0; i < starCount; i++) {
+                const star = document.createElement("div");
+                star.classList.add("star");
+                starsContainer.appendChild(star);
+
+                star.style.left = `${Math.random() * 100}vw`;
+                star.style.top = `${Math.random() * 100}vh`;
+                star.style.animationDelay = `${Math.random() * 2}s`;
+            }
+        }
+
+        // Создаём звёзды при загрузке страницы
+        createStars();
+        
         // Обработчик открытия поздравления
         elements.openButton.addEventListener("click", () => {
             elements.preloader.style.opacity = "0";
-            elements.preloader.style.visibility = "hidden"; // Прячем прелоадер
+            elements.preloader.style.visibility = "hidden";
 
             setTimeout(() => {
                 elements.preloader.style.display = "none";
 
-                // Показываем заголовок и запускаем его анимацию
+                // Показываем заголовок
                 elements.header.style.visibility = "visible";
                 elements.header.style.animation = "fadeIn 1.5s ease-out forwards";
 
-                // Показываем картинку и запускаем её анимацию
-                elements.catImage.style.visibility = "visible";
-                elements.catImage.style.animation = "fadeIn 1.5s ease-out 1.5s forwards";
-
-                // Показываем кнопку и запускаем её анимацию
+                // Показываем кнопку
                 elements.playButton.style.visibility = "visible";
-                elements.playButton.style.animation = "fadeIn 1.5s ease-out 3s forwards";
+                elements.playButton.style.animation = "fadeIn 1.5s ease-out 1.5s forwards";
+
+                // Показываем картинку
+                elements.catImage.style.visibility = "visible";
+                elements.catImage.style.animation = "fadeIn 1.5s ease-out 3s forwards";
             }, 1000);
         });
 
