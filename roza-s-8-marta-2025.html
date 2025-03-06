@@ -160,10 +160,11 @@
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
             opacity: 1;
             animation: fadeOut 1s ease-in-out forwards;
+            transform: translateY(-50px); /* Сдвигаем текст вверх */
         }
         @keyframes fadeOut {
-            from { opacity: 1; transform: translateY(0); }
-            to { opacity: 0; transform: translateY(-20px); }
+            from { opacity: 1; transform: translateY(-50px); }
+            to { opacity: 0; transform: translateY(-70px); }
         }
 
         /* Медиа-запрос для мобильных устройств */
@@ -294,9 +295,7 @@
             document.body.appendChild(meowText);
 
             meowText.style.left = `${event.pageX}px`;
-            meowText.style.top = `${event.pageY}px`;
-
-            setTimeout(() => meowText.remove(), 1000);
+            meowText.style.top = `${event.pageY - 50}px`; /* Сдвигаем текст вверх на 50px */
         });
     </script>
 </body>
