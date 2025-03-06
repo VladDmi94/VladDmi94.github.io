@@ -122,11 +122,13 @@
             opacity: 0;
             transform: scale(0.8);
             visibility: hidden; /* Добавлено */
-            width: 90%; /* Ширина кнопки равна ширине картинки */
-            max-width: 600px; /* Максимальная ширина кнопки */
+            width: auto; /* Ширина по содержимому */
+            max-width: 100%; /* Не шире картинки */
+            min-height: 60px; /* Фиксированная высота для двух строк */
             box-sizing: border-box; /* Чтобы padding не увеличивал ширину */
             white-space: normal; /* Разрешаем перенос текста */
             line-height: 1.4; /* Отступ между строками */
+            text-align: center; /* Выравнивание текста по центру */
         }
         #play-button:hover {
             background-color: #d6336c;
@@ -177,8 +179,8 @@
                 width: 80%; /* Ширина текста пропорциональна картинке */
             }
             #play-button {
-                width: 80%; /* Ширина кнопки равна ширине картинки на мобильных устройствах */
                 font-size: 14px; /* Уменьшаем размер шрифта для мобильных устройств */
+                min-height: 50px; /* Уменьшаем высоту для мобильных устройств */
             }
         }
     </style>
@@ -262,7 +264,7 @@
         elements.playButton.addEventListener("click", () => {
             if (elements.music.paused) {
                 elements.music.play();
-                elements.playButton.textContent = "⏸ Остановить музыку";
+                elements.playButton.innerHTML = "⏸ Остановить<br>музыку"; /* Две строки */
                 petalsInterval = setInterval(createPetal, 500);
                 elements.greeting.style.opacity = "1";
                 elements.greeting.style.transform = "scale(1)";
@@ -273,7 +275,7 @@
                 }
             } else {
                 elements.music.pause();
-                elements.playButton.textContent = "🎵Вернуть музыку";
+                elements.playButton.innerHTML = "🎵Вернуть<br>музыку"; /* Две строки */
                 clearInterval(petalsInterval);
             }
         });
