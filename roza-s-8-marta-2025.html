@@ -264,7 +264,7 @@
         elements.playButton.addEventListener("click", () => {
             if (elements.music.paused) {
                 elements.music.play();
-                elements.playButton.innerHTML = "⏸ Остановить<br>музыку"; /* Две строки */
+                elements.playButton.innerHTML = "⏸ Остановить музыку"; /* Одна строка */
                 petalsInterval = setInterval(createPetal, 500);
                 elements.greeting.style.opacity = "1";
                 elements.greeting.style.transform = "scale(1)";
@@ -275,7 +275,7 @@
                 }
             } else {
                 elements.music.pause();
-                elements.playButton.innerHTML = "🎵Вернуть<br>музыку"; /* Две строки */
+                elements.playButton.innerHTML = "🎵Вернуть музыку"; /* Одна строка */
                 clearInterval(petalsInterval);
             }
         });
