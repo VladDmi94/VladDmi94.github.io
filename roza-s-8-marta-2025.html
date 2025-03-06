@@ -274,7 +274,7 @@
             } else {
                 elements.music.pause();
                 elements.playButton.innerHTML = "🎵Вернуть музыку";
-                clearInterval(petalsInterval);
+                // Убираем clearInterval, чтобы лепестки продолжали падать
             }
         });
 
