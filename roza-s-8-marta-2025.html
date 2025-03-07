@@ -109,7 +109,8 @@
 
         /* Кнопка музыки */
         #play-button {
-            margin-top: 15px;
+            margin-top: 20px;
+            margin-bottom: 20px;
             padding: 10px 20px;
             font-size: 16px;
             border: none;
@@ -148,7 +149,7 @@
             padding: 10px;
             opacity: 0;
             transform: scale(0.8);
-            visibility: hidden; /* Скрываем текст изначально */
+            visibility: hidden;
         }
 
         /* Подпись */
@@ -164,7 +165,7 @@
             text-align: right;
             opacity: 0;
             transform: scale(0.8);
-            visibility: hidden; /* Скрываем подпись изначально */
+            visibility: hidden;
         }
 
         /* Текст "Мяу!" */
@@ -268,14 +269,16 @@
             setTimeout(() => {
                 elements.preloader.style.display = "none";
 
-                // Показываем заголовок и запускаем его анимацию
+                // Показываем заголовок через 1.5 секунду
                 elements.header.style.visibility = "visible";
                 elements.header.style.animation = "fadeIn 1.5s ease-out forwards";
 
-                // Показываем кнопку и запускаем её анимацию
-                elements.playButton.style.visibility = "visible";
-                elements.playButton.style.animation = "fadeIn 1.5s ease-out 3s forwards";
-            }, 1000);
+                // Показываем кнопку через 1.5 секунды после заголовка
+                setTimeout(() => {
+                    elements.playButton.style.visibility = "visible";
+                    elements.playButton.style.animation = "fadeIn 1.5s ease-out forwards";
+                }, 1500);
+            }, 1500);
         });
 
         // Обработчик музыки
