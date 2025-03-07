@@ -161,10 +161,10 @@
             width: 90%;
             margin-left: auto;
             margin-right: auto;
-            text-align: right; /* Выравниваем по правому краю */
+            text-align: right;
             opacity: 0;
             transform: scale(0.8);
-            visibility: hidden; /* Скрываем подпись изначально */
+            visibility: hidden;
         }
 
         /* Текст "Мяу!" */
@@ -219,7 +219,7 @@
         <audio id="bg-music" src="images/roza_piano_music.mp3"></audio>
         <button id="play-button">📖Открыть поздравление и<br>🎶Включить музыку</button>
         <p id="greeting">Дорогая Розачка, поздравляю тебя с Международным женским днём 8 марта!💕 Желаю тебе и всем твоим родным крепкого здоровья, никогда не болеть. Будь самой счастливой и дари счастье остальным. Пусть исполнятся все твои мечты!💖</p>
-        <p id="signature">Твой Влад</p> <!-- Добавленная подпись -->
+        <p id="signature">Твой Влад</p>
     </div>
 
     <script>
@@ -231,7 +231,7 @@
             catImage: document.getElementById("cat-image"),
             playButton: document.getElementById("play-button"),
             greeting: document.getElementById("greeting"),
-            signature: document.getElementById("signature"), // Добавлено
+            signature: document.getElementById("signature"),
             music: document.getElementById("bg-music"),
         };
 
@@ -295,7 +295,7 @@
                 setTimeout(() => {
                     elements.signature.style.visibility = "visible";
                     elements.signature.style.animation = "fadeIn 1.5s ease-out forwards";
-                }, 5000); // Задержка 5 секунд
+                }, 5000);
 
                 if (isFirstClick) {
                     isFirstClick = false;
