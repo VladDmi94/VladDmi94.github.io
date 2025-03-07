@@ -164,7 +164,7 @@
             text-align: right; /* Выравниваем по правому краю */
             opacity: 0;
             transform: scale(0.8);
-            transition: opacity 1.5s ease-out 2s, transform 1.5s ease-out 2s; /* Задержка 2 секунды */
+            visibility: hidden; /* Скрываем подпись изначально */
         }
 
         /* Текст "Мяу!" */
@@ -290,8 +290,13 @@
                 petalsInterval = setInterval(createPetal, 500);
                 elements.greeting.style.opacity = "1";
                 elements.greeting.style.transform = "scale(1)";
-                elements.signature.style.opacity = "1"; // Показываем подпись
-                elements.signature.style.transform = "scale(1)";
+
+                // Показываем подпись с задержкой 5 секунд
+                setTimeout(() => {
+                    elements.signature.style.visibility = "visible";
+                    elements.signature.style.animation = "fadeIn 1.5s ease-out forwards";
+                }, 5000); // Задержка 5 секунд
+
                 if (isFirstClick) {
                     isFirstClick = false;
                 }
