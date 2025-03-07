@@ -65,7 +65,7 @@
             max-width: 600px;
             height: auto;
             cursor: pointer;
-            margin: 20px auto 0; /* Добавлен отступ сверху */
+            margin: 20px auto 0;
             opacity: 0;
             transform: scale(0.8);
             visibility: hidden;
@@ -148,7 +148,7 @@
             padding: 10px;
             opacity: 0;
             transform: scale(0.8);
-            transition: opacity 1.5s ease-out, transform 1.5s ease-out;
+            visibility: hidden; /* Скрываем текст изначально */
         }
 
         /* Подпись */
@@ -164,7 +164,7 @@
             text-align: right;
             opacity: 0;
             transform: scale(0.8);
-            visibility: hidden;
+            visibility: hidden; /* Скрываем подпись изначально */
         }
 
         /* Текст "Мяу!" */
@@ -272,10 +272,6 @@
                 elements.header.style.visibility = "visible";
                 elements.header.style.animation = "fadeIn 1.5s ease-out forwards";
 
-                // Показываем картинку и запускаем её анимацию
-                elements.catImage.style.visibility = "visible";
-                elements.catImage.style.animation = "fadeIn 1.5s ease-out 1.5s forwards";
-
                 // Показываем кнопку и запускаем её анимацию
                 elements.playButton.style.visibility = "visible";
                 elements.playButton.style.animation = "fadeIn 1.5s ease-out 3s forwards";
@@ -289,10 +285,18 @@
                 elements.music.play();
                 elements.playButton.innerHTML = "⏸ Остановить музыку";
                 petalsInterval = setInterval(createPetal, 500);
-                elements.greeting.style.opacity = "1";
-                elements.greeting.style.transform = "scale(1)";
 
-                // Показываем подпись с задержкой 5 секунд
+                // Показываем картинку сразу
+                elements.catImage.style.visibility = "visible";
+                elements.catImage.style.animation = "fadeIn 1.5s ease-out forwards";
+
+                // Показываем текст поздравления через 1.5 секунды
+                setTimeout(() => {
+                    elements.greeting.style.visibility = "visible";
+                    elements.greeting.style.animation = "fadeIn 1.5s ease-out forwards";
+                }, 1500);
+
+                // Показываем подпись через 5 секунд после текста
                 setTimeout(() => {
                     elements.signature.style.visibility = "visible";
                     elements.signature.style.animation = "fadeIn 1.5s ease-out forwards";
