@@ -3,6 +3,21 @@
 <head>
 <meta charset="UTF-8">
 <title>Magnet Redirect</title>
+<style>
+  body {
+    background-color: #000;
+    color: #ccc;
+    font-family: sans-serif;
+    text-align: center;
+    padding: 20px;
+  }
+  a { color: #4da3ff; }
+  #link {
+    word-break: break-all;
+    display: block;
+    margin-top: 10px;
+  }
+</style>
 <script>
 const trackers = [
   // NNMClub
@@ -41,6 +56,7 @@ window.onload = window.onhashchange = redirect;
 </script>
 </head>
 <body>
-Если не редиректнуло — проверьте ссылку.
+Редирект...
+<a id="link" href="#"></a>
 </body>
 </html>
