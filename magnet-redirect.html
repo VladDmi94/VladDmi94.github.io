@@ -43,7 +43,7 @@ const trackers = [
 function redirect() {
   let h = decodeURIComponent(location.hash.slice(1));
   if (!h) {
-    document.body.innerHTML = "Добавьте magnet ссылку или info-hash после #";
+    document.body.innerHTML = "Нужно добавить magnet ссылку или info-hash в конце после https://vladdmi94.github.io/magnet-redirect.html#";
     return;
   }
   if (!h.startsWith("magnet:?")) {
