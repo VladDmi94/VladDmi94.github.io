@@ -24,23 +24,6 @@
 <a id="link" href="#"></a>
 
 <script>
-const trackers = [
-  "http://bt02.nnm-club.cc:2710/announce",
-  "http://bt01.nnm-club.cc:2710/announce",
-  "http://bt02.nnm-club.info:2710/announce",
-  "http://bt01.nnm-club.info:2710/announce",
-  "http://bt.t-ru.org/ann",
-  "http://bt2.t-ru.org/ann",
-  "http://bt3.t-ru.org/ann",
-  "http://bt4.t-ru.org/ann",
-  "udp://opentor.net:6969",
-  "udp://open.stealth.si:80/announce",
-  "udp://exodus.desync.com:6969/announce",
-  "udp://tracker.opentrackr.org:1337/announce",
-  "udp://tracker.openbittorrent.com:6969/announce",
-  "udp://tracker.dler.com:6969/announce",
-  "udp://tracker.leechers-paradise.org:6969/announce"
-];
 function redirect() {
   let h = decodeURIComponent(location.hash.slice(1));
   if (!h) {
@@ -49,7 +32,6 @@ function redirect() {
   }
   if (!h.startsWith("magnet:?")) {
     h = "magnet:?xt=urn:btih:" + h;
-    trackers.forEach(t => h += "&tr=" + encodeURIComponent(t));
   }
   const linkElem = document.getElementById('link');
   linkElem.textContent = h;
