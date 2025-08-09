@@ -18,23 +18,24 @@
     margin-top: 10px;
   }
 </style>
+</head>
+<body>
+Редирект на
+<a id="link" href="#"></a>
+
 <script>
 const trackers = [
-  // NNMClub
   "http://bt02.nnm-club.cc:2710/announce",
   "http://bt01.nnm-club.cc:2710/announce",
   "http://bt02.nnm-club.info:2710/announce",
   "http://bt01.nnm-club.info:2710/announce",
-  // RuTracker
   "http://bt.t-ru.org/ann",
   "http://bt2.t-ru.org/ann",
   "http://bt3.t-ru.org/ann",
   "http://bt4.t-ru.org/ann",
-  // RuTor
   "udp://opentor.net:6969",
   "udp://open.stealth.si:80/announce",
   "udp://exodus.desync.com:6969/announce",
-  // Открытые трекеры
   "udp://tracker.opentrackr.org:1337/announce",
   "udp://tracker.openbittorrent.com:6969/announce",
   "udp://tracker.dler.com:6969/announce",
@@ -50,13 +51,12 @@ function redirect() {
     h = "magnet:?xt=urn:btih:" + h;
     trackers.forEach(t => h += "&tr=" + encodeURIComponent(t));
   }
+  const linkElem = document.getElementById('link');
+  linkElem.textContent = h;
+  linkElem.href = h;
   location.href = h;
 }
 window.onload = window.onhashchange = redirect;
 </script>
-</head>
-<body>
-Редирект...
-<a id="link" href="#"></a>
 </body>
 </html>
