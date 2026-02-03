@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="images/roza_favicon.png" type="image/x-icon">
+    <title>С Днем Рождения!</title>
+    <meta property="og:title" content="Нажми на меня">
+    <meta property="og:description" content="Это сюрприз">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background: #121212; /* фон */
+            text-align: center;
+        }
+
+        /* Блоки по умолчанию скрыты */
+        #timer-screen, #congrats-screen {
+            display: none;
+        }
+
+        h1 { color: #B0B0B0; }
+        .timer { font-size: 3rem; font-weight: bold; color: #E1E1E1; }
+
+        /* Настройки экрана поздравления */
+        #congrats-screen {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            background-image: url('images/dr2026fon.webp'); /* картинка фона */
+            background-size: cover;
+            background-position: center;
+            overflow: hidden;
+        }
+
+        /* Контейнер для диалога внизу */
+        .dialog-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+
+            width: 804px;
+            max-width: 95vw;
+            
+            aspect-ratio: 804 / 550;
+        }
+
+        /* Аватарка */
+        @keyframes avatarAppear {
+            from {
+                opacity: 0;
+                transform: translate(-50%, 20px);
+            }
+            to {
+                opacity: 1;
+                transform: translate(-50%, 0);
+            }
+        }
+
+        #avatar {
+            opacity: 0;
+            animation: avatarAppear 0.6s ease-out forwards;
+            animation-delay: 0.9s;
+
+            /* сохраняем пропорции оригинала 230×359 */
+            aspect-ratio: 230 / 359;
+
+            /* адаптивная ширина */
+            width: clamp(90px, 18vw, 160px);
+            height: auto;
+
+            position: absolute;
+
+            /* чуть НИЖЕ, чем было */
+            top: calc(100% + clamp(20px, 5vw, 0px));
+
+            /* 12% от левого края облачка */
+            left: 12%;
+            transform: translateX(-50%);
+
+            /* убираем всё лишнее */
+            border: none;
+            border-radius: 0;
+            background: transparent;
+
+            pointer-events: none; /* чтобы не мешала кликам */
+        }
+
+        /* Облачко с текстом */
+        @keyframes bubbleAppear {
+            from {
+                opacity: 0;
+                transform: scale(0.92);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .speech-bubble {
+            animation: bubbleAppear 0.6s ease-out forwards;
+
+            width: 100%;
+            height: 100%;
+
+            background-image: url('images/dr2026obloko.webp');
+            background-size: 100% 100%;
+            background-repeat: no-repeat;
+
+            padding: clamp(20px, 5vw, 60px);
+            box-sizing: border-box;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+
+            border-radius: 30px;
+        }
+
+        @keyframes textFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .speech-bubble p {
+            opacity: 0;
+            animation: textFadeIn 0.5s ease-out forwards;
+            animation-delay: 0.4s;
+
+            margin: 0 auto;
+            
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            text-align: center;
+
+            max-width: 80%;
+            word-wrap: break-word;
+
+            font-size: clamp(1.1rem, 3.2vw, 1.6rem);
+            line-height: 1.4;
+            color: #2D5A30; /* Более глубокий и читаемый зелёный */
+            font-weight: 500;
+    
+            text-shadow: 0 1px 2px rgba(255, 255, 255, 0.5); /* Лёгкий светлый блик под текстом для объёма */
+        }
+
+        /* Кнопка ответа */
+        #next-btn {
+            opacity: 0;
+            animation: textFadeIn 0.5s ease-out forwards;
+            animation-delay: 0.7s;
+
+            align-self: flex-end;
+            margin-right: 15%; /* Немного сдвинул к центру от края */
+            margin-bottom: clamp(45px, 9vw, 80px); 
+
+            background: #4A8B51; /* Заливка кнопки, чтобы она была заметнее */
+            border: none;
+            outline: none;
+
+            font-size: clamp(1rem, 2.5vw, 1.2rem);
+            font-weight: 600;
+
+            color: #ffffff; /* Белый текст на зелёном фоне */
+            cursor: pointer;
+
+            padding: 8px 25px;
+            border-radius: 999px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+
+            transition: all 0.3s ease;
+        }
+
+        #next-btn:hover {
+            background: #ad1457; /* Твой любимый розовый при наведении */
+            color: #ffffff;
+            box-shadow: 0 0 15px rgba(173, 20, 87, 0.5); /* Розовое свечение */
+            transform: translateY(-2px) scale(1.05); /* Легкий эффект прыжка */
+        }
+
+        /* Класс для плавного исчезновения */
+        .fade-out {
+            opacity: 0 !important;
+            transform: translate(-50%, -40%) scale(0.9) !important; /* Уплывает чуть вверх и уменьшается */
+            transition: all 0.8s ease-in-out !important;
+            pointer-events: none;
+        }
+
+        /* Стили для картинки с тортом */
+        #final-tort {
+            width: 100%; 
+            max-width: 500px; 
+            height: auto;
+            display: block; /* Изменили с none, так как JS его включит */
+            margin: 0 auto; /* ЦЕНТРИРОВАНИЕ ВНУТРИ КОНТЕЙНЕРА */
+            border-radius: 20px;
+            filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.3));
+            animation: textFadeIn 1.5s ease-out forwards;
+        }
+
+    </style>
+</head>
+<body>
+    <audio id="bg-music" src="images/dr2026song.mp3"></audio>
+    <div id="timer-screen">
+        <h1>🎂</h1>
+        <div id="countdown" class="timer">00:00:00</div>
+    </div>
+
+    <div id="congrats-screen">
+        <div class="dialog-container">
+            <img id="avatar" src="images/dr2026avatar1.webp" alt="Аватар">
+            <div class="speech-bubble">
+                <p id="dialog-text">Это у кого сегодня День рождения?</p>
+                <button id="next-btn" onclick="nextStep()">У меня!</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // УКАЖИ ЗДЕСЬ ДАТУ (Год, Месяц - 1, Число, Часы, Минуты)
+        // ВНИМАНИЕ: Месяцы в JavaScript считаются от 0 до 11 (Январь = 0, Февраль = 1 и т.д.)
+        const targetDate = new Date(2026, 1, 7, 0, 0, 0); // Пример: 7 февраля 2026
+
+        function updatePage() {
+            const now = new Date();
+            const diff = targetDate - now;
+
+            if (diff <= 0) {
+                // ВРЕМЯ ПРИШЛО
+                document.getElementById('timer-screen').style.display = 'none';
+                document.getElementById('congrats-screen').style.display = 'block';
+            } else {
+                // ВРЕМЯ ЕЩЕ НЕ НАСТАЛО
+                document.getElementById('timer-screen').style.display = 'block';
+                
+                // Считаем дни, часы, минуты и секунды
+                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+                const mins = Math.floor((diff / 1000 / 60) % 60);
+                const secs = Math.floor((diff / 1000) % 60);
+
+                document.getElementById('countdown').innerText = 
+                    `${days}д ${hours}ч ${mins}м ${secs}с`;
+            }
+        }
+
+        // Запускаем обновление каждую секунду
+        setInterval(updatePage, 1000);
+        updatePage(); // И один раз при запуске
+
+        let currentStep = 0;
+
+        // Твои настройки диалогов
+        const dialogs = [
+            {
+                text: "Это у кого сегодня День рождения?",
+                button: "У меня!",
+                avatar: "images/dr2026avatar1.webp"
+            },
+            {
+                text: "Ура! Значит, приготовься получить поздравления. Готова?",
+                button: "Слушаю...",
+                avatar: "images/dr2026avatar2.webp"
+            },
+            {
+                text: "✨Родная Розачка, от всей души хочу поздравить тебя и пожелать крепкого здоровья, бесконечно много счастья и исполнения мечт!💖 Пусть этот день будет понастоящему особенным!👑",
+                button: "Спасибо!",
+                avatar: "images/dr2026avatar3.webp"
+            },
+            {
+                text: "И прими этот скромный призент...",
+                button: "Смотрю ✨",
+                avatar: "images/dr2026avatar3.webp"
+            }
+        ];
+
+        function nextStep() {
+            const textElement = document.getElementById('dialog-text');
+            const btnElement = document.getElementById('next-btn');
+            const avatarElement = document.getElementById('avatar');
+
+            textElement.style.animation = 'none';
+            textElement.offsetHeight; 
+            textElement.style.animation = null;
+
+            btnElement.style.animation = 'none';
+            btnElement.offsetHeight; 
+            btnElement.style.animation = null;
+
+            currentStep++;
+
+            if (currentStep < dialogs.length) {
+                textElement.innerText = dialogs[currentStep].text;
+                btnElement.innerText = dialogs[currentStep].button;
+                avatarElement.src = dialogs[currentStep].avatar;
+            } else {
+                // ЗАПУСК МУЗЫКИ С ПАУЗОЙ В 1 СЕКУНДУ
+                const music = document.getElementById('bg-music');
+                if (music) {
+                    music.volume = 0.5; // 50% громкости
+                    
+                    // Добавляем задержку в 1000мс (1 секунда)
+                    setTimeout(() => {
+                        music.play().catch(e => console.log("Ошибка звука:", e));
+                    }, 1000); 
+                }
+
+                const container = document.querySelector('.dialog-container');
+                container.classList.add('fade-out');
+
+                setTimeout(() => {
+                    container.classList.remove('fade-out');
+                    container.style.top = "50%";
+                    container.innerHTML = `
+                        <img id="final-tort" src="images/dr2026tort.webp" alt="С днем рождения!" style="display: block;">
+                    `;
+                }, 2000);
+            }
+        }
+
+    </script>
+</body>
+</html>
