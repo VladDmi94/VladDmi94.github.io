@@ -21,6 +21,15 @@
     margin-top: 10px;
     font-size: clamp(12px, 3vw, 15px);
   }
+  #copy.ok {
+    color: #5ddc6a;
+    border-color: #5ddc6a;
+    background: #5ddc6a1a;
+  }
+  #copy.fail { color: #f66;
+    border-color: #f66;
+    background: #f661;
+  }
   .btn {
     display: inline-block;
     margin: 12px 6px;
@@ -84,8 +93,16 @@ function redirect() {
   link.href = r.magnet;
   copy.onclick = () => {
     navigator.clipboard.writeText(r.magnet).then(
-      () => { copy.textContent = "Скопировано"; setTimeout(() => copy.textContent = "Скопировать", 1500); },
-      () => { copy.textContent = "Не вышло"; }
+      () => {
+        copy.textContent = "Скопировано";
+        copy.classList.add("ok");
+        setTimeout(() => { copy.textContent = "Скопировать"; copy.classList.remove("ok"); }, 1500);
+      },
+      () => {
+        copy.textContent = "Не вышло";
+        copy.classList.add("fail");
+        setTimeout(() => { copy.textContent = "Скопировать"; copy.classList.remove("fail"); }, 1500);
+      }
     );
   };
   location.href = r.magnet;
