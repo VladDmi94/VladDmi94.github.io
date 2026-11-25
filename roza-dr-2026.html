@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <link rel="icon" href="images/roza_favicon.png" type="image/x-icon">
+    <link rel="icon" href="images/roza-favicon.png" type="image/x-icon">
     <title>С Днем Рождения!</title>
     <meta property="og:title" content="Нажми на меня">
     <meta property="og:description" content="Это сюрприз">
@@ -31,7 +31,7 @@
             position: relative;
             width: 100vw;
             height: 100vh;
-            background-image: url('images/dr2026fon.webp'); /* картинка фона */
+            background-image: url('images/roza-dr-2026-background.webp'); /* картинка фона */
             background-size: cover;
             background-position: center;
             overflow: hidden;
@@ -109,7 +109,7 @@
             width: 100%;
             height: 100%;
 
-            background-image: url('images/dr2026obloko.webp');
+            background-image: url('images/roza-dr-2026-dialogue-bubble.webp');
             background-size: 100% 100%;
             background-repeat: no-repeat;
 
@@ -216,7 +216,7 @@
     </style>
 </head>
 <body>
-    <audio id="bg-music" src="images/dr2026song.mp3" preload="auto"></audio>
+    <audio id="bg-music" src="images/roza-dr-2026-song.mp3" preload="auto"></audio>
     <div id="timer-screen">
         <h1>🎂</h1>
         <div id="countdown" class="timer">00:00:00</div>
@@ -224,7 +224,7 @@
 
     <div id="congrats-screen">
         <div class="dialog-container">
-            <img id="avatar" src="images/dr2026avatar1.webp" alt="Аватар">
+            <img id="avatar" src="images/roza-dr-2026-avatar1.webp" alt="Аватар">
             <div class="speech-bubble">
                 <p id="dialog-text">Это у кого сегодня День рождения?</p>
                 <button id="next-btn" onclick="nextStep()">У меня!</button>
@@ -271,22 +271,22 @@
             {
                 text: "Это у кого сегодня День рождения?",
                 button: "У меня!",
-                avatar: "images/dr2026avatar1.webp"
+                avatar: "images/roza-dr-2026-avatar1.webp"
             },
             {
                 text: "Ура! Значит, приготовься получить поздравления. Готова?",
                 button: "Слушаю...",
-                avatar: "images/dr2026avatar2.webp"
+                avatar: "images/roza-dr-2026-avatar2.webp"
             },
             {
                 text: "✨Родная Розачка, от всей души хочу поздравить тебя и пожелать крепкого здоровья, бесконечно много счастья и исполнения мечт!💖 Пусть этот день будет самым крутым!👑 С любовью",
                 button: "Спасибо!",
-                avatar: "images/dr2026avatar3.webp"
+                avatar: "images/roza-dr-2026-avatar3.webp"
             },
             {
                 text: "И прими этот скромный презент...",
                 button: "Смотрю ✨",
-                avatar: "images/dr2026avatar3.webp"
+                avatar: "images/roza-dr-2026-avatar3.webp"
             }
         ];
 
@@ -328,7 +328,7 @@
                     container.classList.remove('fade-out');
                     container.style.top = "50%";
                     container.innerHTML = `
-                        <img id="final-tort" src="images/dr2026tort.webp" alt="С днем рождения!" style="display: block;">
+                        <img id="final-tort" src="images/roza-dr-2026-cake.webp" alt="С днем рождения!" style="display: block;">
                     `;
                 }, 2000);
             }
@@ -337,9 +337,9 @@
     </script>
 </body>
 <div style="display: none;">
-    <img src="images/dr2026avatar2.webp">
-    <img src="images/dr2026avatar3.webp">
-    <img src="images/dr2026tort.webp">
+    <img src="images/roza-dr-2026-avatar2.webp">
+    <img src="images/roza-dr-2026-avatar3.webp">
+    <img src="images/roza-dr-2026-cake.webp">
 </div>
 </html>
 
