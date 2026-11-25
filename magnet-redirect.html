@@ -2,6 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Magnet Redirect</title>
 <link rel="icon" type="image/png" href="images/favicon.png">
 <style>
@@ -11,35 +12,86 @@
     font-family: sans-serif;
     text-align: center;
     padding: 20px;
+    font-size: clamp(15px, 3.5vw, 18px);
   }
   a { color: #4da3ff; }
   #link {
     word-break: break-all;
     display: block;
     margin-top: 10px;
+    font-size: clamp(12px, 3vw, 15px);
   }
+  .btn {
+    display: inline-block;
+    margin: 12px 6px;
+    padding: 10px 18px;
+    border: 1px solid #4da3ff;
+    border-radius: 8px;
+    color: #4da3ff;
+    background: none;
+    font-size: inherit;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  .err { color: #f66; margin-top: 20px; }
 </style>
 </head>
 <body>
-Редирект на
+<h3>Редирект на</h3>
 <a id="link" href="#"></a>
+<br>
+<button id="copy" class="btn">Скопировать</button>
 
 <script>
-function redirect() {
-  let h = decodeURIComponent(location.hash.slice(1));
-  if (!h) {
-    document.body.innerHTML = "Нужно добавить magnet ссылку или info-hash в конце после https://vladdmi94.github.io/magnet-redirect.html#";
-    return;
+function cleanLink(raw) {
+  let h;
+  try { h = decodeURIComponent(raw); } catch (e) { h = raw.replace(/%+$/, ""); }
+  h = h.trim();
+  const lastHash = h.lastIndexOf("#");
+  if (lastHash !== -1) h = h.slice(lastHash + 1);
+  h = h.trim().replace(/^[\s"'(\[>+]+/, "").replace(/[\s)\"\'>]+$/g, "").trim();
+  h = h.replace(/[\s.,;:!]+$/g, "").trim();
+  if (h.length >= 2 && (h[0] === '"' || h[0] === "'") && h[h.length - 1] === h[0]) {
+    h = h.slice(1, -1).trim();
   }
-  if (!h.startsWith("magnet:?")) {
+  return h;
+}
+
+function getMagnet() {
+  const raw = location.hash.slice(1);
+  if (!raw) {
+    return { error: "Нужно добавить magnet-ссылку или info-hash в конце адреса: https://vladdmi94.github.io/magnet-redirect.html#…" };
+  }
+  let h = cleanLink(raw);
+  if (!h.startsWith("magnet:")) {
+    if (!/^[a-f0-9]{40}$/i.test(h)) {
+      return { error: "Похоже, это не magnet-ссылка и не info-hash (нужны 40 символов a–f, 0–9)." };
+    }
     h = "magnet:?xt=urn:btih:" + h;
   }
-  const linkElem = document.getElementById('link');
-  linkElem.textContent = h;
-  linkElem.href = h;
-  location.href = h;
+  return { magnet: h };
 }
-window.onload = window.onhashchange = redirect;
+
+function redirect() {
+  const r = getMagnet();
+  if (r.error) {
+    document.body.innerHTML = '<p class="err">' + r.error + "</p>";
+    return;
+  }
+  const link = document.getElementById("link");
+  const copy = document.getElementById("copy");
+  link.textContent = r.magnet;
+  link.href = r.magnet;
+  copy.onclick = () => {
+    navigator.clipboard.writeText(r.magnet).then(
+      () => { copy.textContent = "Скопировано"; setTimeout(() => copy.textContent = "Скопировать", 1500); },
+      () => { copy.textContent = "Не вышло"; }
+    );
+  };
+  location.href = r.magnet;
+}
+window.addEventListener("load", redirect);
+window.addEventListener("hashchange", redirect);
 </script>
 </body>
 </html>
